@@ -1,0 +1,279 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditApplication as ctrl" ng-show="ctrl.canEditApplications">
+    <div class="title">{{ctrl.title}}</div>
+    <form name="frmEdit" method="POST" ng-submit="ctrl.submitApplication(frmEdit.$valid)" id="frmEdit" novalidate>
+
+        <ol class="breadcrumb margin0">
+            <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+            <li><i class="fa-heart"></i> <a href="" ng-click="ctrl.goto('AllApplications')"> Applications System </a>
+            </li>
+            <li class="active"><i class="fa-pencil"></i> {{ctrl.title}} </li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id" value="12">
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-info"></i> Info </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="form-box">
+                        <div class="text-right"> No more than <span class="red">200</span> characters </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span>  Applications
+                                Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <input class="form-control" id="name_th" name="name_th" type="text" required
+                                        ng-model="ctrl.applicationModel.systemName"
+                                        ng-maxlength="ctrl.applicationNameMaxLength"
+                                        limit-to="{{ctrl.applicationNameMaxLength}}" maxlength="200"
+                                        ng-class="{ 'is-invalid' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <div class="help-block with-errors"
+                                        ng-if="frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine">Application name
+                                        is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="text-right"><span id="chars"
+                                class="red">{{ctrl.applicationNameMaxLength - ctrl.applicationModel.systemName.length}}</span>
+                            characters remaining </div>
+                        <div class="cleaner"></div>
+
+                        <div class="text-right"> No more than <span class="red">1000</span> characters </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"> System
+                                Description : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <textarea class="form-control" placeholder="" name="detail_th" rows="5" maxlength="1000"
+                                    ng-maxlength="ctrl.descMaxLength" limit-to="{{ctrl.descMaxLength}}"
+                                    ng-model="ctrl.applicationModel.systemDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="text-right"><span id="chars"
+                                class="red">{{ctrl.descMaxLength - ctrl.applicationModel.systemDescription.length}}</span>
+                            characters remaining </div>
+                        <div class="cleaner"></div>
+
+                        <div class="clearfix"></div>
+                        <div class="form-group"
+                            ng-class="{ 'has-error' : frmEdit.url.$invalid && !frmEdit.url.$pristine }">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span>  URL : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <input type="text" class="form-control" placeholder="" name="url" required
+                                    ng-class="{ 'is-invalid' : frmEdit.url.$invalid && !frmEdit.url.$pristine }"
+                                    ng-model="ctrl.applicationModel.systemURL"
+                                    ng-class="{ 'is-invalid' : frmEdit.url.$invalid && !frmEdit.url.$pristine }">
+                                <div class="help-block with-errors"
+                                    ng-if="frmEdit.url.$invalid && !frmEdit.url.$pristine">Url is required.</div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">icon : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <i class="far fa-list-alt"></i>
+                                <div class="cleaner"></div>
+                                <input type="text" class="form-control" placeholder="" name="icon"
+                                    value="<i class=&quot;far fa-list-alt&quot;></i>">
+                                <small class="red">*ตัวอย่างในการใส่ไอคอน "&lt;i class=&quot;fas
+                                    fa-ad&quot;&gt;&lt;/i&gt;" ไอคอนต่างๆดูได้ <a
+                                        href="https://fontawesome.com/icons?d=gallery&m=free"
+                                        target="_blank">ที่นี่</a></small>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div> -->
+
+                        <!-- <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">color : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#fcb712"> <span style="color:#fcb712;"> <i
+                                            class="fas fa-tint"></i> #fcb712 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#8f1838"> <span style="color:#8f1838;"> <i
+                                            class="fas fa-tint"></i> #8f1838 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#ce8d29"> <span style="color:#ce8d29;"> <i
+                                            class="fas fa-tint"></i> #ce8d29 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#f36d24"> <span style="color:#f36d24;"> <i
+                                            class="fas fa-tint"></i> #f36d24 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#47773d"> <span style="color:#47773d;"> <i
+                                            class="fas fa-tint"></i> #47773d </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#007dbd" checked> <span
+                                        style="color:#007dbd;"> <i class="fas fa-tint"></i> #007dbd </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#3db049"> <span style="color:#3db049;"> <i
+                                            class="fas fa-tint"></i> #3db049 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#02558b"> <span style="color:#02558b;"> <i
+                                            class="fas fa-tint"></i> #02558b </span>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="cleaner"></div>-->
+                        <div class="h20"></div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="widget-box-grey">
+                <div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Create Date : </div>
+                        <div class="col-xs-8" ng-if="ctrl.applicationModel.createdDate">
+                            {{ctrl.applicationModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.applicationModel.createdDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.applicationModel.createdBy">
+                            {{ctrl.applicationModel.createdBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.applicationModel.createdBy">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Last Modify : </div>
+                        <div class="col-xs-8" ng-if="ctrl.applicationModel.updatedDate">
+                            {{ctrl.applicationModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.applicationModel.updatedDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.applicationModel.updatedBy">
+                            {{ctrl.applicationModel.updatedBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.applicationModel.updatedBy">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.applicationModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+
+
+            <div class="widget-box-green">
+                <div class="widget-title" lang="th"><i class="fa-sitemap"></i> Category</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+
+                        <select id="search_cate" class="form-control" name="search_cate" ng-model="ctrl.applicationModel.selectedCategory"
+                            ng-options="option.name for option in ctrl.categories track by option.id">
+                        </select>
+
+                    </div>
+                    <!--widget-inbox-cate-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-red">
+                <div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="product-images">
+                        For :
+                        <select id="select-tag form-control" class="select-tag form-control" name="permission"
+                            ng-model="ctrl.applicationModel.selectedPermission"
+                            ng-options="option.name for option in ctrl.permissions track by option.id">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEditApplications">
+            <ul>
+                <li>
+                    <button type="submit"
+                        ng-disabled="ctrl.processing" class="bt-save">
+                        <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+                </li>
+                <li>
+                    <button type="button" ng-click="ctrl.goto('AllApplications')" class="bt-clear">Cancel</button>
+                </li>
+            </ul>
+        </div>
+    </form>
+    
+    <script>
+        $('.show-hide-widget').click(function(){
+            var widgetInbox = $(this).parents('.widget-tool').siblings('.widget-inbox');
+            if(widgetInbox.css('display')=='block')
+            {
+                widgetInbox.hide();
+                $(this).removeClass('fa-caret-up').addClass('fa-caret-down');
+            }
+            else
+            {
+                widgetInbox.show();
+                $(this).removeClass('fa-caret-down').addClass('fa-caret-up');
+            }
+        });
+    </script>
+</div>
+<!--main-content-->

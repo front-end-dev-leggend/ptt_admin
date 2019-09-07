@@ -1,0 +1,169 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="ContactCtrl as ctrl" ng-show="ctrl.canEdit || ctrl.canView">
+
+    <div class="title"> Response <ul class="tool">
+            <!--<li><button class="bt-clear"><i class="fa-trash"></i> Delete</button></li>
+            	<li><button class="bt-save">บันทึก</button></li>-->
+        </ul>
+    </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa-comments-o"></i> <a href="" ng-click="ctrl.goto('Contacts')"> Contact List </a></li>
+        <li class="active"><i class="fa-list"></i> Response</li>
+    </ol>
+
+
+    <div class="h10"></div>
+    <div class="alert alert-info list-search" role="alert">
+        <form name="frmSearch" method="POST" ng-submit="ctrl.searchContact(true)">
+            <input name="no-pg" type="hidden" value="10">
+            <!--<strong># รหัส</strong> : <input type="text" name="search_id" value=""> &nbsp;|&nbsp;-->
+            <i class="fa-user"></i> <strong>Name</strong> : <input type="text" name="search_title" ng-model="ctrl.criteria.fullName" size="50">
+
+            <button type="submit" class="bt-search"><strong><i class="fa-search"></i> Search</strong></button>
+            <button class="bt-search" ng-click="ctrl.clearSearch()"><strong><i class="fa-times"></i> Clear</strong></button>
+        </form>
+    </div>
+    <div class="h10"></div>
+
+
+    <div id="searchresult" class="scroll-x">
+        <div class="counter-box" style="position: relative;float: right;">
+            Counter : <label>{{ctrl.criteria.totalCounter | thousandSuffix:1}}</label>
+        </div>
+        <div>
+            <table id="DataTableList" class="table table-bordered product-list sorting">
+                <thead>
+                    <tr>
+                        <th width="40px"><input type="checkbox" name="all-product" id="all-product"
+                            class="css-checkbox" ng-click="ctrl.toggleAll()" ng-model="ctrl.isAllSelected"><label for="all-product" class="css-label"></label></th>
+                        <th width="10%">No.</th>
+                        <th width="15%">
+                            <a ng-click="ctrl.sort_by('FullName');">Name
+                                <span ng-show="ctrl.criteria.sortingOrder == 'FullName'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'FullName'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="15%">
+                            <a ng-click="ctrl.sort_by('Email');">E-mail
+                                <span ng-show="ctrl.criteria.sortingOrder == 'Email'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'Email'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">Tel.</th>
+                        <th width="15%">
+                            <a ng-click="ctrl.sort_by('Subject');">Subject
+                                <span ng-show="ctrl.criteria.sortingOrder == 'Subject'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'Subject'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="20%">Message</th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('SubmitDate');">Submited Date
+                                <span ng-show="ctrl.criteria.sortingOrder == 'SubmitDate'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'SubmitDate'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('ResponsedBy');">Responded Name
+                                <span ng-show="ctrl.criteria.sortingOrder == 'ResponsedBy'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'ResponsedBy'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">Response</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="ctrl.criteria.results.length == 0">
+                        <td colspan="10">No data found</td>
+                    </tr>
+                    <tr ng-repeat="r in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0" ng-class="{'warning': r.selected}">
+                        <td align="center">
+                                <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="chk_del css-checkbox"
+                                ng-model="r.selected" ng-change="ctrl.optionToggled()">
+                                <label for="{{r.id}}" class="css-label"></label>
+                        </td>
+                        <td align="center">{{r.no}}</td>
+                        <td align="center">{{r.fullName}}</td>
+                        <td align="center">{{r.email}}</td>
+                        <td align="center">{{r.phoneNumber}}</td>
+                        <td>{{r.subject}} </td>
+                        <td>
+                            {{(r.detail && r.detail.length > 100)? (r.detail | slice:0:100)+'..':(r.detail)}}
+                        </td>
+                        <td align="center">{{r.submitDate | date:'d MMM yyyy @ HH:mm'}}</td>
+                        <td align="center">{{r.responsedBy}}</td>
+                        <td align="center">
+                            <a href="" ng-click="ctrl.goto('ResponseContact', r)"
+                            ng-class="!ctrl.canEdit? 'disabled' : ''"
+                            class="bt-edit"><i class="fa-pencil"></i>
+                                Response</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ul class="records-info records-info-bottom">
+        <li> </li> <a class="bt-prev" href="" ng-click="ctrl.previousPage()"><i class="fa-caret-left"></i></a> <input type="text" size="3" ng-model="ctrl.criteria.pageNumber"
+            disabled="">
+        <a href=""
+            class="bt-next" ng-click="ctrl.nextPage()"><i class="fa-caret-right"></i></a> From {{ctrl.totalPage}} pages
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li> Item per page
+            <select class="show-rec-no" ng-model="ctrl.criteria.pageSize" ng-change="ctrl.changePageSize()" ng-options="x for x in ctrl.pageSizes">
+            </select> Rows </li>
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li>All <strong>{{ctrl.criteria.total}}</strong> items</li>
+    </ul>
+
+    <div class="tool-bottom col-xs-12">
+        <ul>
+            <!--<li><button class="bt-save">บันทึก</button></li>-->
+            <li><button class="bt-clear" ng-show="ctrl.showDelete" ng-click="ctrl.deleteContacts()"><i class="fa-trash"></i> Delete</button></li>
+        </ul>
+    </div>
+
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+</div>
+<!--main-content-->

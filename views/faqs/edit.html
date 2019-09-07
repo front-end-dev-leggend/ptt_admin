@@ -1,0 +1,174 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditFAQsCtrl as ctrl" ng-show="ctrl.canEdit">
+    
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submit(frmEdit.$valid)" novalidate>
+        <div class="title">{{ctrl.title}}</div>
+
+        <ol class="breadcrumb margin0">
+                <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+                <li><i class="fa-question-circle"></i> <a href="" ng-click="ctrl.goto('AllFAQs')"> FAQs </a></li>
+                <li class="active"><i class="fa-list"></i> List FAQs </li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id" value="1">
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-info"></i> Info </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="form-box">
+                        <div class="text-right"> No more than <span class="red">200</span> characters </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Question :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <input class="form-control" id="name_th" name="name_th" type="text"
+                                        required ng-model="ctrl.faqsModel.question" ng-maxlength="ctrl.questionMaxLength"
+                                        limit-to="{{ctrl.questionMaxLength}}" maxlength="200"
+                                        ng-class="{ 'is-invalid' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine">Question is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="text-right"><span id="chars" class="red">{{ctrl.questionMaxLength - ctrl.faqsModel.question.length}}</span> characters remaining </div>
+                        <div class="cleaner"></div>
+                        
+                        <div class="text-right"> No more than <span class="red">1000</span> characters </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Answer :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.desc.$invalid && !frmEdit.desc.$pristine }">
+                                    <textarea class="form-control" id="desc" name="desc"
+                                        required ng-model="ctrl.faqsModel.answer"  maxlength="1000"
+                                        ng-maxlength="ctrl.answerMaxLength"
+                                        limit-to="{{ctrl.answerMaxLength}}"
+                                        ng-class="{ 'is-invalid' : frmEdit.desc.$invalid && !frmEdit.desc.$pristine }" rows="5"></textarea>
+                                    <div class="help-block with-errors" ng-if="frmEdit.desc.$invalid && !frmEdit.desc.$pristine">Answer is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-right"><span id="chars"
+                                class="red">{{ctrl.answerMaxLength - ctrl.faqsModel.answer.length}}</span>
+                            characters remaining </div>
+                        <div class="cleaner"></div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="widget-box-grey">
+                <div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Create Date : </div>
+                        <div class="col-xs-8" ng-if="ctrl.faqsModel.createdDate">
+                            {{ctrl.faqsModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.faqsModel.createdDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.faqsModel.createdBy">
+                            {{ctrl.faqsModel.createdBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.faqsModel.createdBy">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Last Modify : </div>
+                        <div class="col-xs-8" ng-if="ctrl.faqsModel.updatedDate">
+                            {{ctrl.faqsModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.faqsModel.updatedDate">
+                                -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.faqsModel.updatedBy">
+                            {{ctrl.faqsModel.updatedBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.faqsModel.updatedBy">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.faqsModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-red">
+                <div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+                    
+                        For :
+                        <select id="select-tag form-control" class="select-tag form-control" name="permission" ng-model="ctrl.faqsModel.selectedPermission"
+                            ng-options="option.name for option in ctrl.permissions track by option.id">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+        <div ng-show="ctrl.canEdit" class="tool-bottom col-xs-12">
+            <button type="submit" ng-disabled="ctrl.processing" 
+                class="bt-save">
+            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+            <button type="button" ng-click="ctrl.goto('AllFAQs')" class="bt-clear">Cancel</button>
+        </div>
+    </form>
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+</div>

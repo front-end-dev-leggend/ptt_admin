@@ -1,0 +1,235 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="DownloadCtrl as ctrl" ng-show="ctrl.canView || ctrl.canEdit">
+    <div class="title"> All Download
+    </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa-newspaper-o"></i> <a href="" ng-click="ctrl.goto('AllDownload')"> Download </a></li>
+        <li class="active"><i class="fa-list"></i> All Download </li>
+    </ol>
+
+
+    <div class="h10"></div>
+    <div class="alert alert-info list-search" role="alert">
+        <form>
+            <input name="no-pg" type="hidden" value="10">
+            <i class="fa-newspaper-o"></i> <strong> Topic </strong> : <input type="text" name="search_title" ng-model="ctrl.criteria.topic" value="">
+            &nbsp;|&nbsp;
+            <i class="fa-sitemap"></i> <strong>Categories</strong> :
+            <select id="search_cate" name="search_cate" ng-change="ctrl.refreshDocumentStatus()"
+                    ng-model="ctrl.criteria.selectedCategory"
+                    ng-options="option.name for option in ctrl.categories track by option.id">
+            </select> &nbsp;|&nbsp; 
+            <strong><i class="fa-calendar-alt"></i>
+                <!--ช่วงวันที่-->Document Date Duration </strong> :
+            <input type="text" datepicker ng-readonly="true" style="background:white;" name="search_docdate_start" ng-model="ctrl.criteria.dateFrom"> - <input type="text" datepicker ng-readonly="true" style="background:white;" name="search_docdate_end"
+            ng-model="ctrl.criteria.dateTo"> &nbsp;|&nbsp;
+            
+            <div class="cleaner h10"></div>
+            <i class="fa-heart"></i> <strong>Status</strong> :
+            <select id="search_cate" name="search_cate"
+                    ng-model="ctrl.criteria.selectedStatus"
+                    ng-options="option for option in ctrl.status">
+            </select> &nbsp;|&nbsp;
+            <i class="fa-child"></i> <strong>Permission</strong> :
+            <select id="search_cate" name="search_cate"
+                    ng-model="ctrl.criteria.selectedPermission"
+                    ng-options="option.name for option in ctrl.permissions track by option.id"
+                    >
+            </select> &nbsp;|&nbsp;
+            <span ng-if="ctrl.criteria.selectedCategory.name == 'Guideline'" >
+                <strong >Document Control</strong> :
+                <select id="search_syncstatus"
+                        name="search_syncstatus"
+                        ng-model="ctrl.criteria.selectedSyncStatus"
+                        ng-options="option for option in ctrl.documentStatus">
+                </select>
+            </span>
+            <button class="bt-search" ng-click="ctrl.searchDocuments()"><strong><i class="fa-search"></i> Search</strong></button>
+            <button class="bt-search"  ng-click="ctrl.clearSearch()"><strong><i class="fa-times"></i> Clear</strong></button>
+        </form>
+    </div>
+    <div class="h10"></div>
+
+
+    <ul class="records-info" ng-show="ctrl.canEdit">
+        <li><a href="" ng-click="ctrl.goto('AddDownload', null)"><button class="btn btn-info">Add Download </button></a> &nbsp; </li>
+    </ul>
+
+    <div id="searchresult" class="scroll-x">
+        <div class="counter-box" style="position: relative;float: right;">
+            Counter : <label>{{ctrl.criteria.totalCounter | thousandSuffix:1}}</label>
+        </div>
+        <div>
+            <table class="table table-bordered product-list sorting">
+                <tbody>
+                    <tr>
+                        <th width="20px"><input type="checkbox" name="all-product" id="all-product" class="css-checkbox"
+                                ng-click="ctrl.toggleAll()" ng-model="ctrl.isAllSelected"><label for="all-product"
+                                class="css-label"></label></th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('n.[Priority]');">No.
+                                <span ng-show="ctrl.criteria.sortingOrder == 'n.[Priority]'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'n.[Priority]'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('c.[Name]');">Category
+                                <span ng-show="ctrl.criteria.sortingOrder == 'c.[Name]'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'c.[Name]'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th>
+                            <a ng-click="ctrl.sort_by('n.DocumentName');">Topic
+                                <span ng-show="ctrl.criteria.sortingOrder == 'n.DocumentName'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'n.DocumentName'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('n.DocumentDate');">Document Date
+                                <span ng-show="ctrl.criteria.sortingOrder == 'n.DocumentDate'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'n.DocumentDate'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('n.[Counter]');">Counter
+                                <span ng-show="ctrl.criteria.sortingOrder == 'n.[Counter]'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'n.[Counter]'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%">Permission</th>
+                        <th width="10%">
+                            <a ng-click="ctrl.sort_by('n.Active');">Status
+                                <span ng-show="ctrl.criteria.sortingOrder == 'n.Active'">
+                                    <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                    <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                                </span>
+                                <span ng-show="ctrl.criteria.sortingOrder != 'n.Active'">
+                                    <span> <i class="fa fa-sort"></i></span>
+                                </span>
+                            </a>
+                        </th>
+                        <th width="10%" ng-if="ctrl.criteria.selectedCategory.name == 'Guideline'">Document Control</th>
+                        <th width="10%"></th>
+                    </tr>
+                    <tr ng-if="ctrl.criteria.results.length === 0">
+                        <td colspan="10">No data found</td>
+                    </tr>
+                    <tr ng-repeat="r in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0">
+                        <td>
+                            <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="chk_del css-checkbox"
+                                ng-model="r.selected" ng-change="ctrl.optionToggled()">
+                            <label for="{{r.id}}" class="css-label"></label>
+                        </td>
+                        <td align="center">
+                            <select name="selPriority"
+                                ng-disabled="!ctrl.canEdit"
+                                ng-model="r.priority"
+                                ng-change="ctrl.updateDocumentPriority(r.id, r.priority)"
+                                ng-options="x for x in r.priorities"></select>
+                        </td>
+                        <td align="center">
+                            <div class="selected-item-blue">{{r.category}}</div>
+                            <div class="cleaner"></div>
+                        </td>
+                        <td>
+                            {{r.topic}}<div class="h10"></div>
+                        </td>
+                        <td align="center">
+                            {{r.documentDate | date:'d MMM yyyy'}}
+                        </td>
+                        <td align="center">
+                            {{r.counter | thousandSuffix:1}}
+                        </td>
+                        <td align="center">
+                            <div class="widget-box-blue" ng-if="r.permission.trim() == 'PTT'">
+                                {{r.permission}}
+                            </div>
+                            <div class="widget-box-green" ng-if="r.permission.trim() !== 'PTT'">
+                                {{r.permission}}
+                            </div>
+                        </td>
+                        <td align="center">
+                            <!-- <div class="publushed">
+                                    <select class="select-publushed chk_show" data-id="24" ng-change="ctrl.updateDocumentStatus(r.id, r.status)" 
+                                    ng-model="r.status" ng-options="x for x in ctrl.status">
+                                    </select>
+                                </div> -->
+                            <div class="selected-item-green" ng-if="r.status == 'Active'">{{r.status}}</div>
+                            <div class="selected-item-red" ng-if="r.status == 'Inactive'">{{r.status}}</div>
+                        </td>
+                        <td align="center" ng-if="ctrl.criteria.selectedCategory.name == 'Guideline'">
+                            {{r.documentStatus}}
+                        </td>
+                        <td colspan="6" align="center">
+                            <a href="" ng-class="!ctrl.canEdit? 'disabled' : ''"
+                            ng-click="ctrl.goto('EditDownload', r)" class="bt-edit">
+                            <i class="fa-pencil"></i> Edit</a></td>
+                    </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ul class="records-info records-info-bottom">
+        <li> </li> <a class="bt-prev" ng-click="ctrl.previousPage()"><i class="fa-caret-left"></i></a> <input type="text" size="3" ng-model="ctrl.criteria.pageNumber"
+            disabled="">
+        <a href=""
+            class="bt-next" ng-click="ctrl.nextPage()"><i class="fa-caret-right"></i></a> From {{ctrl.totalPage}} pages
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li> Item per page
+            <select class="show-rec-no" ng-model="ctrl.criteria.pageSize" ng-change="ctrl.changePageSize()" ng-options="x for x in ctrl.pageSizes">
+            </select> Rows </li>
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li>All <strong>{{ctrl.criteria.total}}</strong> items</li>
+    </ul>
+
+    <div class="tool-bottom col-xs-12" ng-show="ctrl.canEdit">
+        <ul>
+            <li><button class="bt-clear" ng-show="ctrl.showDelete" ng-click="ctrl.deleteDocuments()"><i class="fa-trash"></i> Delete</button></li>
+        </ul>
+    </div>
+
+
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+
+</div>

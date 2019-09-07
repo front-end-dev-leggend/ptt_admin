@@ -1,0 +1,51 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div class="page-login" ng-controller="LoginCtrl as loginCtrl">
+    <div class="col-xs-offset-0 col-sm-offset-2 col-md-offset-3 col-lg-offset-4 col-xs-12 col-sm-8 col-md-6 col-lg-4 text-center">
+    	
+        
+        <form name="frmLogin" id="frmLogin" method="POST" ng-submit="loginCtrl.login(frmLogin.$valid)" novalidate autocomplete="off">
+        	
+            <div class="form-login">
+            		<p></p>
+                    <div class="page-login-logo">
+                        <img src="images/sm-logo.png"/>
+                        <!--<span class="font18 orange" lang="en">portal</span>-->
+                    </div>
+                <ul>
+                    <li><span class="font16 grey" lang="en">Login Admin</span></li>
+                    <li><div class="h20"></div></li>
+                    <li class="text-left"><span class="font10 grey" lang="en">Username</span></li>
+                    <li>
+                        <div class="form-group" ng-class="{ 'has-error' : frmLogin.username.$invalid && !frmLogin.username.$pristine }">
+                            <input class="form-control" autocomplete="off" id="username" name="username" type="text"
+                                required ng-model="loginCtrl.username"
+                                ng-class="{ 'is-invalid' : frmLogin.username.$invalid && !frmLogin.username.$pristine }">
+                            <div class="help-block with-errors" ng-if="frmLogin.username.$invalid && !frmLogin.username.$pristine">Please enter username.</div>
+                        </div>
+                    </li>
+                    <li class="text-left"><span class="font10 grey" lang="en">Password</span></li>
+                    <li>
+                            <div class="form-group" ng-class="{ 'has-error' : frmLogin.password.$invalid && !frmLogin.password.$pristine }">
+                            <input class="form-control" autocomplete="off" id="password" name="password"  type="password" required ng-model="loginCtrl.password" 
+                            ng-class="{ 'is-invalid' : frmLogin.password.$invalid && !frmLogin.password.$pristine }">
+                            <div class="help-block with-errors" ng-if="frmLogin.password.$invalid && !frmLogin.password.$pristine">Please enter password.</div>
+                        </div>
+                    </li>
+                    <li><div class="h20"></div></li>
+                    <li class="text-left">
+                        <button type="submit" ng-disabled="loginCtrl.processing" 
+                            class="bt-login">
+                            <i ng-if="loginCtrl.processing" class="fa fa-spinner fa-spin"></i> Login</button>
+                    </li>
+                </ul>
+            </div>
+        </form>
+        <div style="font-size: 0.7em;">
+            <span class="grey">Copyright 2019 © Powered by </span><a href="http://www.smportal.com" target="_blank" class="orange">smportal</a>
+        </div>
+    </div>
+</div>

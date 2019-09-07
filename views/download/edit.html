@@ -1,0 +1,543 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditDownloadCtrl as ctrl" ng-show="ctrl.canEdit">
+
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submitDocument(frmEdit.$valid)" novalidate>
+        <div class="title">{{ctrl.title}}
+            <!-- <ul class="tool">
+                <li>
+                    <button type="button" ng-click="ctrl.submitDocument(frmEdit.$valid)" ng-disabled="ctrl.processing"
+                        class="bt-save">
+                        <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+                </li>
+                <li><button type="button" ng-click="ctrl.goto('AllDownload')" class="bt-clear">Cancel</button></li>
+            </ul> -->
+        </div>
+
+        <ol class="breadcrumb margin0">
+            <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+            <li><i class="fa-newspaper-o"></i> <a href="" ng-click="ctrl.goto('AllDownload')">Download</a></li>
+            <li class="active"><i class="fa-pencil"></i> {{ctrl.title}} </li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id" value="1">
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-info"></i> Info </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+
+                <div class="widget-inbox">
+                    <div class="text-right"> No more than <span class="red">200</span> characters </div>
+                    <div class="cleaner"></div>
+                    <div class="form-box">
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Topic Download :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <input class="form-control" id="name_th" name="name_th" type="text" required
+                                        ng-model="ctrl.documentModel.documentName" maxlength="200"
+                                        ng-maxlength="ctrl.topicMaxLength" limit-to="{{ctrl.topicMaxLength}}"
+                                        ng-class="{ 'is-invalid' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }"
+                                        ng-readonly="ctrl.makeReadOnly">
+                                    <div class="help-block with-errors"
+                                        ng-if="frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine">Topic is
+                                        required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="text-right"><span id="chars"
+                                class="red">{{ctrl.topicMaxLength - ctrl.documentModel.documentName.length}}</span>
+                            characters remaining </div>
+
+                        <div class="cleaner"></div>
+                        <div class="text-right"> No more than <span class="red">1000</span> characters </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"> Description :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <textarea rows="3" class="form-control" maxlength="1000" ng-readonly="ctrl.makeReadOnly"
+                                    name="desc" id="desc" ng-maxlength="ctrl.descMaxLength"
+                                    limit-to="{{ctrl.descMaxLength}}"
+                                    ng-model="ctrl.documentModel.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="text-right"><span id="chars"
+                                class="red">{{ctrl.descMaxLength - ctrl.documentModel.description.length}}</span>
+                            characters remaining </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">
+                                    <span class="required-red">*</span> Publish Date : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine }">
+                                    <input type="text" class="form-control" datepicker ng-readonly="true"
+                                        style="background:white;" id="documentdate" name="documentdate"
+                                        ng-disabled="ctrl.makeReadOnly" required
+                                        ng-model="ctrl.documentModel.documentDate"
+                                        ng-class="{ 'is-invalid' : frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine }">
+                                    <div class="help-block with-errors"
+                                        ng-if="frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine">
+                                        DocumentDate is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <!-- <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">icon : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="cleaner"></div>
+                                <input type="text" class="form-control" placeholder="" ng-readonly="ctrl.makeReadOnly"
+                                    name="icon" ng-model="ctrl.documentModel.icon">
+                                <small class="red">*ตัวอย่างในการใส่ไอคอน "fa fa-ad" ไอคอนต่างๆดูได้ <a
+                                        href="https://fontawesome.com/icons?d=gallery&m=free"
+                                        target="_blank">ที่นี่</a></small>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">color : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#fcb712"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#fcb712;"> <i
+                                            class="fas fa-tint"></i> #fcb712 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#8f1838"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#8f1838;"> <i
+                                            class="fas fa-tint"></i> #8f1838 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#ce8d29"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#ce8d29;"> <i
+                                            class="fas fa-tint"></i> #ce8d29 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#f36d24"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#f36d24;"> <i
+                                            class="fas fa-tint"></i> #f36d24 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#47773d"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#47773d;"> <i
+                                            class="fas fa-tint"></i> #47773d </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#007dbd"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#007dbd;"> <i
+                                            class="fas fa-tint"></i> #007dbd </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#3db049"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#3db049;"> <i
+                                            class="fas fa-tint"></i> #3db049 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" ng-disabled="ctrl.makeReadOnly" value="#02558b"
+                                        ng-model="ctrl.documentModel.color"> <span style="color:#02558b;"> <i
+                                            class="fas fa-tint"></i> #02558b </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div> -->
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Document ID :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <input type="text" class="form-control" placeholder="" ng-readonly="ctrl.makeReadOnly"
+                                    ng-model="ctrl.documentModel.documentID" name="doc_id" value="">
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Version :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <input type="text" class="form-control" placeholder="" ng-readonly="ctrl.makeReadOnly"
+                                    ng-model="ctrl.documentModel.version" name="version" value="">
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Document Type :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <select id="tag" class="form-control" name="doc_type" ng-disabled="ctrl.makeReadOnly"
+                                    ng-model="ctrl.documentModel.selectedDocumentType"
+                                    ng-options="option.name for option in ctrl.documentTypes track by option.id">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Owner Department
+                                : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <input type="text" class="form-control" ng-readonly="ctrl.makeReadOnly" placeholder=""
+                                    name="owner" ng-model="ctrl.documentModel.ownerDepartment" value="" maxlength="100">
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Compliance Level
+                                : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <input type="text" class="form-control" ng-readonly="ctrl.makeReadOnly" placeholder=""
+                                    name="comp_level" ng-model="ctrl.documentModel.complianceLevel" value="">
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+            <!--widget-box-->
+
+            <!--widget-inbox-->
+            <div class="widget-box-sky" ng-show="ctrl.showCoverImage">
+                <div class="widget-title" lang="th"><i class="fa-photo"></i> Cover Image </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                        <p class="red">* ขนาดรูปที่แนะนำ 1000x666 pixels และควรมีขนาดไม่เกิน 3MB</p>
+                    <!--profile-box-->
+                    <input type="hidden" name="id_cover" value="">
+                    <div class="profile-box" style="text-align: center">
+                        <div class="profile-image" style="padding-bottom: 2%;">
+                            <div class="bt-del-image" ng-click="ctrl.deleteCoverImage()"
+                                data-file="c1429a213d052139ae051d7c074e83bb.png" data-action="del-image"><svg
+                                    class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false"
+                                    data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 352 512" data-fa-i2svg="">
+                                    <path fill="currentColor"
+                                        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                    </path>
+                                </svg></div>
+                            <img src="{{ctrl.documentModel.thumbnail}}" ng-click="ctrl.uploadCoverImage()"
+                                style="position: unset;" alt="profile-picture" class="img-responsive">
+                        </div>
+                        <div class="btn btn-sm btn-submit" data-toggle="modal" data-target="#avatar-modal">
+                            <a href="" ng-click="ctrl.uploadCoverImage()"><i class="ion-images"></i> Choose cover
+                                image</a>
+                        </div>
+                    </div>
+                    <!--profile-box-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="widget-box-grey">
+                <div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Create Date : </div>
+                        <div class="col-xs-8" ng-if="ctrl.documentModel.updatedDate">
+                            {{ctrl.documentModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.documentModel.createdDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.documentModel.createdBy">
+                            {{ctrl.documentModel.createdBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.documentModel.createdBy">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Last Modify : </div>
+                        <div class="col-xs-8" ng-if="ctrl.documentModel.updatedDate">
+                            {{ctrl.documentModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.documentModel.updatedDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.documentModel.updatedBy">
+                            {{ctrl.documentModel.updatedBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.documentModel.updatedBy">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.documentModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-orange"
+                ng-if="ctrl.documentModel.id != 0 && ctrl.documentModel.documentStatus && ctrl.documentModel.selectedCategory.name == 'Guideline'">
+                <div class="widget-title" lang="th"><i class="fa-newspaper-o"></i> Document Control</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Status : </div>
+                        <div class="col-xs-8">
+                            <div class="widget-inbox-cate">
+                                <select id="selectDocumentStatus" name="selectDocumentStatus"
+                                    ng-model="ctrl.documentModel.documentStatus"
+                                    ng-options="option.name for option in ctrl.documentStatus track by option.id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-green">
+                <div class="widget-title" lang="th"><i class="fa-sitemap"></i> Category/Subcategory</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Category : </div>
+                        <div class="col-xs-8">
+                            <div class="widget-inbox-cate">
+                                <select id="search_cate" name="search_cate" ng-disabled="ctrl.makeReadOnly"
+                                    ng-change="ctrl.selectedCategoryChange()"
+                                    ng-model="ctrl.documentModel.selectedCategory"
+                                    ng-options="option.name for option in ctrl.categories track by option.id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="ctrl.filterSubCategories.length > 0 && ctrl.documentModel.selectedCategory.displayLayout == 'DISPLAY_5'">
+                        <div class="col-xs-4 text-right">Subcategory : </div>
+                        <div class="col-xs-8">
+                            <div class="widget-inbox-cate">
+                                <select id="search_subcate" name="search_subcate"
+                                    ng-model="ctrl.documentModel.selectedSubCategory"
+                                    ng-options="option.name for option in ctrl.filterSubCategories track by option.id">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--widget-inbox-cate-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-red">
+                <div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+
+                        For :
+                        <select id="select-tag" class="select-tag form-control" name="permission" ng-model="ctrl.documentModel.selectedPermission"
+                            ng-options="option.name for option in ctrl.permissions track by option.id">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="widget-box-violet" ng-if="ctrl.documentModel.selectedCategory.displayLayout != 'DISPLAY_4'">
+                <div class="widget-title" lang="th"><i class="fa-file-pdf-o"></i> File Upload</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <span style="color: red;
+                    font-size: 12px;
+                    cursor: pointer;
+                    position: relative;
+                    float: right;
+                    padding: 5px;" ng-click="ctrl.removePdfFile()"
+                    ng-if="ctrl.documentModel.pdfFileName != null"><svg class="svg-inline--fa fa-times fa-w-11"  width="12px"
+                        aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times" role="img"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg="">
+                        <path fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                        </path>
+                    </svg></span>
+                    <div class="product-images">
+                        <div class='add-pdf' 
+                            ngf-select="ctrl.selectPdfFile()" 
+                            ng-model="ctrl.pdffile"
+                            ngf-model-invalid="invalidFiles" 
+                            ngf-change="ctrl.validateFile($invalidFiles)"
+                            ngf-pattern="'application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ptt,.pptx,.jpg,.png,.txt,application/zip,application/x-zip-compressed,application/x-rar-compressed'"
+                            ngf-accept="'application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ptt,.pptx,.jpg,.png,.txt,application/zip,application/x-zip-compressed,application/x-rar-compressed'"
+                            ngf-max-size="50MB">
+                            <span><i class='fa-file-pdf-o'></i>
+                                <a class='text' ng-if="ctrl.documentModel.pdfFileName == null">Choose File <span class="required-red" style="color: red !important;font-size: 2.4rem">*</a>
+                                <a class='text' style="word-wrap: break-word;"
+                                    ng-if="ctrl.documentModel.pdfFileName != null && ctrl.documentModel.pdfFileName.length > 0">
+                                    {{ctrl.documentModel.pdfFileName}}</a> </span>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cleaner"></div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+            <div class="widget-box-violet" ng-if="ctrl.documentModel.selectedCategory.displayLayout === 'DISPLAY_4'">
+                <div class="widget-title" lang="th"><i class="fa-film"></i> VDO</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="h10"></div>
+                    <div class="form-group">
+                        <label class="col-xs-12"><input type="radio" name="typevdo" ng-model="ctrl.typevdo" ng-change="ctrl.selectVDOType('filesUpload')" value="filesUpload" checked> <strong>Upload File : <span class="required-red">*</span>
+                            </strong></label>
+                        <div class="col-xs-12 " ng-if="!ctrl.documentModel.vdoFileName">
+                            <input id="vdoFileUpload" type="file" 
+                            class="custom-file-input" 
+                            ng-model="ctrl.vdoFile"
+                            ngf-select=""
+                            ngf-model-invalid="invalidVDOFiles" 
+                            ngf-change="ctrl.validateVDOFile($invalidVDOFiles)"
+                            ngf-pattern="'.mp4,.flv,.avi,.wmv'"
+                            ngf-accept="'.mp4,.flv,.avi,.wmv'"
+                            ngf-max-size="500MB"
+                            style="width: 100%" 
+                            ng-disabled="ctrl.typevdo === 'url'">
+                        </div>
+                        <div class="col-xs-12 " ng-if="ctrl.documentModel.vdoFileName">
+                            <span>{{ctrl.documentModel.vdoFileName}} </span>
+                            <span style="color:#f00;margin-left: 10px;cursor: pointer;" ng-click="ctrl.removeVDOFile()">
+                                <svg class="svg-inline--fa fa-times fa-w-11" width="12px" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times"
+                                    role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg="">
+                                    <path fill="currentColor"
+                                        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                    </path>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="h10"></div>
+                    <div class="form-group"
+                        ng-class="{ 'has-error' : frmEdit.vdo.$error && frmEdit.vdo.$invalid && !frmEdit.vdo.$pristine}">
+                        <label class="col-xs-12 "><input type="radio" name="typevdo" ng-model="ctrl.typevdo" ng-change="ctrl.selectVDOType('url')" value="url">  <strong>URL Youtube  : <span class="required-red">*</span></strong></label>
+                        <div class="col-xs-12">
+                            <input type="text" class="form-control" ng-disabled="ctrl.makeReadOnly || ctrl.typevdo == 'filesUpload'" 
+                                placeholder=""
+                                ng-pattern="/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/"
+                                ng-model="ctrl.documentModel.youtubeURL" name="vdo" id="vdo">
+
+                            <div ng-messages="frmEdit.vdo.$error" ng-messages-multiple>
+                                <div ng-message="pattern" class="help-block with-errors">Please enter a valid link.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left">
+                            <small class="red">*ตัวอย่างในการใส่ลิงก์ : https://www.youtube.com/embed/73C9FrnRuYQ
+                            </small>
+                        </div>
+                    </div>
+                    <div class="cleaner"></div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+        </div>
+        <div class="cleaner"></div>
+        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEdit">
+            <button type="submit"  ng-disabled="ctrl.processing"
+                class="bt-save">
+                <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+            <button type="button" ng-click="ctrl.goto('AllDownload')" class="bt-clear">Cancel</button>
+        </div>
+    </form>
+
+    <script type="text/ng-template" id="confirm-delete.html">
+
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="upload-cover.html">
+        <div class="modal-header">
+            <h3 class="modal-title" style="display: inline;">Cover image</h3>
+            <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body  text-center" id="modal-body-editor" ng-if="myImage === ''">
+            <div class="form-group text-center">
+                <input type="file" id="fileInput" style="display:none" name="fileInput"/>
+                <div class="avatar-wrapper" style="display: block;">
+                        <div class="select-image" ng-click="triggerUpload()">
+                            <svg class="svg-inline--fa fa-image fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path></svg>
+                            Click for Upload 
+                        </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br/>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+        <div class="modal-body text-center" id="modal-body-editor"  ng-if="myImage !== ''">
+            <div class="cropArea">
+                <ui-cropper image="myImage" area-type="rectangle" result-image-size="'max'" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
+            </div>
+            <br/>
+            <a id="cropAvatar" class="btn btn-submit btn-sm" ng-click="cropFuntion()">Crop</a>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+    </script>
+    <script src="js/bws.js"></script>
+
+</div>

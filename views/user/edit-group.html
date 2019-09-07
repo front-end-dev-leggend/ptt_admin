@@ -1,0 +1,381 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditGroupCtrl as ctrl" class="page-product" ng-show="ctrl.canEdit">
+    <div class="title">{{ctrl.title}} </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('dashboard')">Home</a></li>
+        <li><i class="fa-user"></i> <a href="" ng-click="ctrl.goto('groups')"> User Group </a></li>
+        <li class="active"><i class="fa-pencil"></i> Add </li>
+    </ol>
+
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submit(frmEdit.$valid)" novalidate>
+        <!--action="fn_save.php"-->
+
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-user"></i> User Group ({{ctrl.title}}) </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="id" value="2">
+                    <div class="form-box">
+                        <div class="form-group ">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-4 control-labe text-right"> <span class="required-red">*</span>User Group Name
+                                : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+                                <div class="form-group"
+                                    ng-class="{ 'has-error' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <input class="form-control" id="name_th" name="name_th" type="text" required
+                                        ng-model="ctrl.model.groupName"
+                                        ng-maxlength="ctrl.groupNameMaxLength"
+                                        limit-to="{{ctrl.groupNameMaxLength}}" maxlength="255"
+                                        ng-class="{ 'is-invalid' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <div class="help-block with-errors"
+                                        ng-if="frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine">Group name
+                                        is required.</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group ">
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-4 control-labe text-right"> Status :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6">
+                                <select name="status" class="form-control" ng-model="ctrl.model.status"
+                                    ng-options="x for x in ctrl.statuss">
+                                </select>
+                                <!-- <select class="form-control" name="status">
+                                    <option value="status1">Active</option>
+                                    <option value="status2">Inactive</option>
+                                </select> -->
+                            </div>
+                        </div>
+                        <div class="clearfix h20"></div>
+                    </div>
+
+                    <table class="table table-striped" border="1" bordercolor="#ddd">
+                        <thead>
+                            <tr bgcolor="#eaeaea">
+                                <th scope="col">Main Menu</th>
+                                <th scope="col">View</th>
+                                <th scope="col">Modify</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td bgcolor="#fbfbfb"><strong>About SM</strong></td>
+                                <td align="center"><input type='checkbox' name='view' id='view-1' class='css-checkbox '
+                                    ng-model="ctrl.model.view_about"
+                                    ng-true-value="'Y'" ng-false-value="'N'" /> <label for='view-1' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-1'
+                                        class='css-checkbox ' 
+                                        ng-model="ctrl.model.modify_about"
+                                    ng-true-value="'Y'" ng-false-value="'N'" /> <label for='modify-1' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>Applications</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - Category </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-2' class='css-checkbox '
+                                    ng-model="ctrl.model.view_category_applications"
+                                    ng-true-value="'Y'" ng-false-value="'N'" /> <label for='view-2' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-2'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_category_applications"
+                                    ng-true-value="'Y'" ng-false-value="'N'"  /> <label for='modify-2' class='css-label'>
+                                    </label></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - All Applications</td>
+                                <td align="center"><input type='checkbox' name='view' id='view-3' class='css-checkbox '
+                                    ng-model="ctrl.model.view_applications"
+                                    ng-true-value="'Y'" ng-false-value="'N'" /> <label for='view-3' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-3'
+                                        class='css-checkbox ' ng-model="ctrl.model.modify_applications"
+                                        ng-true-value="'Y'" ng-false-value="'N'" /> <label for='modify-3' class='css-label'>
+                                    </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>News</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - Category </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-4'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_category_news"
+                                    ng-true-value="'Y'" ng-false-value="'N'" /> <label for='view-4' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-4'
+                                        class='css-checkbox ' 
+                                        ng-model="ctrl.model.modify_category_news"
+                                    ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-4' class='css-label'> </label></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - All News</td>
+                                <td align="center"><input type='checkbox' name='view' id='view-5'
+                                        class='css-checkbox ' 
+                                        ng-model="ctrl.model.view_news"
+                                    ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-5' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-5'
+                                        class='css-checkbox ' 
+                                        ng-model="ctrl.model.modify_news"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-5' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>Policy & Target</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - Category </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-6'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_category_policy"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-6' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-6'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_category_policy"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-6' class='css-label'> </label></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - All Policy & Target</td>
+                                <td align="center"><input type='checkbox' name='view' id='view-7'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_policy"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-7' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-7'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_policy"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-7' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>Download</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - Category </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-8'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_category_download"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-8' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-8'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_category_download"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-8' class='css-label'> </label></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - All Download</td>
+                                <td align="center"><input type='checkbox' name='view' id='view-9'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_download"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-9' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-9'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_download"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-9' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr>
+                                <td bgcolor="#fbfbfb"><strong> Contact List </strong> </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-10'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_contactlist"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-10' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-10'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_contactlist"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-10' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr>
+                                <td bgcolor="#fbfbfb"><strong> FAQs </strong> </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-11'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_faqs"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-11' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-11'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_faqs"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-11' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>User group & Permission </strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp; - User group & Permission Setting </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-12'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_usergroup"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-12' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-12'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_usergroup"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-12' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr>
+                                    <td>&nbsp; - Admin User </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-13'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_adminuser"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-13' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-13'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_adminuser"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-13' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr>
+                                <td>&nbsp; - Front End User </td>
+                                <td align="center"><input type='checkbox' name='view' id='view-14'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.view_frontenduser"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-14' class='css-label'> </label></td>
+                                <td align="center"><input type='checkbox' name='modify' id='modify-14'
+                                        class='css-checkbox '
+                                        ng-model="ctrl.model.modify_frontenduser"
+                                        ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-14' class='css-label'> </label></td>
+                            </tr>
+
+                            <tr bgcolor="#fbfbfb">
+                                <td colspan="3"><strong>Logs </strong></td>
+                            </tr>
+                            <tr>
+                                    <td>&nbsp; - Activity Log </td>
+                                    <td align="center"><input type='checkbox' name='view' id='view-15'
+                                            class='css-checkbox '
+                                            ng-model="ctrl.model.view_activity_log"
+                                            ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-15' class='css-label'> </label></td>
+                                    <td align="center"><input type='checkbox' name='modify' id='modify-15'
+                                            class='css-checkbox '
+                                            ng-model="ctrl.model.modify_activity_log"
+                                            ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-15' class='css-label'> </label></td>
+                                </tr>
+    
+                                <tr>
+                                        <td>&nbsp; - Usage Log </td>
+                                    <td align="center"><input type='checkbox' name='view' id='view-16'
+                                            class='css-checkbox '
+                                            ng-model="ctrl.model.view_usage_log"
+                                            ng-true-value="'Y'" ng-false-value="'N'"/> <label for='view-16' class='css-label'> </label></td>
+                                    <td align="center"><input type='checkbox' name='modify' id='modify-16'
+                                            class='css-checkbox '
+                                            ng-model="ctrl.model.modify_usage_log"
+                                            ng-true-value="'Y'" ng-false-value="'N'"/> <label for='modify-16' class='css-label'> </label></td>
+                                </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div class="h20"></div>
+
+                    <input type="hidden" value="addUser" name="action">
+                    <div class="center"><button type="submit"
+                        ng-disabled="ctrl.processing" class="bt-save">
+                        <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button> <button class="bt-clear"
+                        type="button" ng-click="ctrl.goto('groups')">Cancel</button></div>
+                    <div class="h20"></div>
+
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 display-none">
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> สถานะ</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">สถานะ :
+                            <select class="select-tag" name="status">
+                                <option value="1">ใช้งาน</option>
+                                <option value="0" selected>ระงับใช้งาน</option>
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-green display-none">
+                <div class="widget-title" lang="th"><i class="fa-sitemap"></i> Role </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+                        <ul class="main-cate">
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='1' data-main='1' id='main-1'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-1' class='css-label'>About SM</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='2' data-main='2' id='main-2'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-2' class='css-label'>Applications</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='3' data-main='3' id='main-3'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-3' class='css-label'>News</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='4' data-main='4' id='main-4'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-4' class='css-label'>Policy & Target</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='5' data-main='5' id='main-5'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-5' class='css-label'>Download</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='6' data-main='6' id='main-6'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-6' class='css-label'>Contact List</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='7' data-main='7' id='main-7'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-7' class='css-label'> FAQs</label>
+                            </li>
+                            <li>
+                                <input type='checkbox' name='main-cate[]' value='8' data-main='8' id='main-8'
+                                    class='css-checkbox maincate' $checked />
+                                <label for='main-8' class='css-label'> ระบบ จัดการสิทธิ์ </label>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <!--widget-inbox-cate-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+        </div>
+        <!--col-->
+    </form>
+
+    <div class="h30"></div>
+
+</div>
+<!--main-content-->

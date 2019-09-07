@@ -1,0 +1,180 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditAdminCtrl as ctrl" class="page-product" ng-show="ctrl.canEdit">
+    <div class="title">Edit </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa fa-user"></i> <a href="" ng-click="ctrl.goto('AdminUser')"> Admin User </a></li>
+        <li class="active"><i class="fa fa-pencil"></i> Edit </li>
+    </ol>
+
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submit(frmEdit.$valid)" novalidate>
+        <!--action="fn_save.php"-->
+
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa fa-user"></i> User (Edit) </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="id" value="2">
+                    
+                    <div class="form-box">
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> User ID :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4"><input type="text" class="form-control"
+                                    placeholder="" ng-model="ctrl.model.userId" name="userId" value="" readonly></div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right">
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4"></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> First Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4"><input type="text" class="form-control"
+                                    placeholder="" ng-model="ctrl.model.firstName" name="Name" value="" readonly></div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Last Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4"><input type="text" class="form-control"
+                                    placeholder="" ng-model="ctrl.model.lastName" name="LastName" value="" readonly></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Department :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <input type="text" ng-model="ctrl.model.department"  class="form-control" placeholder="" name="Department" value=""
+                                    readonly>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> E-Mail :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <input type="text" ng-model="ctrl.model.email" class="form-control" name="Companymail" value="" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Mobile Number :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <input type="text" ng-model="ctrl.model.mobilePhoneNumber"  class="form-control" placeholder="" name="officeNoNumber" value=""
+                                    readonly>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Office Number :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <input type="text" ng-model="ctrl.model.officePhoneNumber" class="form-control" name="mobileNumber" value="" readonly>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="form-group ">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> User Group Name
+                                : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <select class="form-control" name="group" ng-model="ctrl.model.selectedGroup"
+                                    ng-options="option.groupName for option in ctrl.groups track by option.id">
+                                </select>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Status :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <select class="form-control" name="status"
+                                    ng-model="ctrl.model.status">
+                                    <option ng-repeat="x in ctrl.status" value="{{x}}" class="black">{{x}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix h20"></div>
+
+                    </div>
+
+                    <input type="hidden" value="addUser" name="action">
+                    <div class="center">
+                        <button type="submit"
+                        ng-disabled="ctrl.processing" class="bt-save">
+                            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+                        <button type="button" ng-click="ctrl.goto('AdminUser')" class="bt-clear">Cancel</button>
+                    </div>
+                    <div class="h30"></div>
+
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+        </div>
+        
+    </form>
+
+    <div class="h30"></div>
+
+    
+    <script type="text/ng-template" id="search-user.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" ng-click="close()">&times;</span>
+            </button>
+            <h4 class="modal-title" id="ModalLabel">รายชื่อ</h4>
+        </div>
+        <div class="modal-body" id="modal-body-editor">
+            <div class="form-box" ng-if="!loading && users.length > 0">
+                <div class="form-group">
+                    <div class="col-sm-3"><strong>รหัส</strong></div>
+                    <div class="col-sm-6"><strong>ชื่อ สกุล</strong></div>
+                    <!-- <div class="col-sm-3"><strong>สกุล</strong></div> -->
+                    <div class="col-sm-3 text-center"><strong>เลือก</strong></div>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="form-group" ng-repeat="u in users">
+                    <div class="col-sm-3">{{u.userID}}</div>
+                    <div class="col-sm-6">{{u.firstName}}</div>
+                    <!-- <div class="col-sm-3">{{u.lastName}}</div> -->
+                    <div class="col-sm-3 text-center">
+                        <button type="button" class="btn-primary bt-choose" ng-click="selectUser(u)">
+                            <i class="fa fa-check-circle"></i> เลือก
+                        </button>
+                    </div>
+                    <div class="cleaner"></div>
+                </div>
+            </div>
+            <div class="form-box" ng-if="loading">
+                <div style="text-align: left">
+                    <img src="svg-loaders/oval.svg" width="30" alt=""> please wait..
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div class="form-box" ng-if="!loading && users.length == 0">
+                <div class="form-group">
+                    <div class="col-sm-3"><strong>รหัส</strong></div>
+                    <div class="col-sm-6"><strong>ชื่อ สกุล</strong></div>
+                    <!-- <div class="col-sm-3"><strong>สกุล</strong></div> -->
+                    <div class="col-sm-3 text-center"><strong>เลือก</strong></div>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="col-sm-12">No data found.</div>
+                <div class="cleaner"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="bt-clear" ng-click="close()">Close</button>
+        </div>
+    </script>
+</div>
+<!--main-content-->

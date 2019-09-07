@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+  <base href="/" />
+  <meta charset="utf-8" />
+  <!--meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"-->
+  <meta name="keywords" content="www.smportal.com" />
+  <meta name="description" content="www.smportal.com" />
+  <meta name="distribution" content="Thailand" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="copyright" content="&copy; 2019 http://www.smportal.com" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <!--meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"-->
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=11" />
+  <meta http-equiv="Cache-control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="expires" content="0">
+
+  <title>SM Gateway :: Backend</title>
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.css" >
+  <link rel="stylesheet" type="text/css" href="css/component.css" />
+  <link href="assets/css/angular-toastr.min.css" rel="stylesheet"/>
+  <link href="css/ui-cropper.css" rel="stylesheet"/>
+  <link href="css/fileinput.css" rel="stylesheet"/>
+  
+
+  <style>
+    #loader {
+      transition: all 0.3s ease-in-out;
+      opacity: 1;
+      visibility: visible;
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      background: #fff;
+      z-index: 90000;
+    }
+
+    #loader.fadeOut {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: calc(50% - 20px);
+      left: calc(50% - 20px);
+      background-color: #333;
+      border-radius: 100%;
+      -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+      animation: sk-scaleout 1.0s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0)
+      }
+
+      100% {
+        -webkit-transform: scale(1.0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+
+      100% {
+        -webkit-transform: scale(1.0);
+        transform: scale(1.0);
+        opacity: 0;
+      }
+    }
+    /* body {
+      font-family: 'DBHelvethaicaX-Reg';
+      font-size: 2em;
+      line-height: 1.42857143;
+      color: #333;
+      background-color: #fff;
+  } */
+  </style>
+</head>
+
+<body ng-controller="AppCtrl as ctrl">
+
+  <!-- Page Loader -->
+  <!-- =================================================== -->
+  <div id='loader'>
+    <!-- <div class="spinner"></div>
+    <span>loading...</span> -->
+  </div>
+
+  <script>
+    window.onload=function() {
+   // window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      setTimeout(function () {
+        loader.classList.add('fadeOut');
+      }, 400);
+    };
+  </script>
+
+  <ui-view></ui-view>
+
+  <script src="js/polyfill.min.js"></script>
+
+  <!-- <script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script> -->
+  <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.12.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/modernizr.custom.js"></script>
+  <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+
+  <script src="scripts/angular/angular.min.js"></script>
+  <script src="scripts/angular/angular-ui-router.js"></script>
+  <script src="scripts/angular/angular-animate.min.js"></script>
+  <script src="scripts/angular/angular-cookies.min.js"></script>
+  <script src="scripts/angular/angular-sanitize.min.js"></script>
+  <script src="scripts/angular/ng-text-truncate.js"></script>
+  <script src="scripts/angular/angular-toastr.min.js"></script>
+  <script src="scripts/angular/angular-toastr.tpls.min.js"></script>
+  <script src="scripts/angular/angular-messages.min.js"></script>
+  <script type="text/javascript" src="js/tinymce/tinymce-angular.js"></script>
+  <script src="js/ui-cropper.js"></script>
+  <script src="js/ng-file-upload-shim.min.js"></script>
+  <script src="js/ng-file-upload.js"></script>
+  <script src="js/jquery.blockUI.js"></script>
+  <script src="js/fileinput.js"></script>
+  <script src="js/angular-bootstrap-fileinput.js"></script>
+  <script src="js/angular-clipboard.js"></script>
+  <script src="js/angular-file-saver.bundle.min.js"></script>
+  <script src="js/Blob.js"></script>
+
+  <script type="text/javascript" src="js/ui-bootstrap-2.4.0.min.js"></script>
+  <script type="text/javascript" src="js/ui-bootstrap-tpls-2.4.0.min.js"></script>
+
+  <script src="app.js?v=1.1"></script>
+  <script src="app.ctrl.js?v=1.2"></script>
+  <script src="app2.ctrl.js?v=1.2"></script>
+  <script src="services.js?v=1.1"></script>
+  <script src="router.config.js?v=1.1"></script>
+
+</body>
+
+</html>

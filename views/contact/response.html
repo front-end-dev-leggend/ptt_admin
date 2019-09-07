@@ -1,0 +1,105 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="ContactResponseCtrl as ctrl" ng-show="ctrl.canEdit">
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.saveResponseContact(frmEdit.$valid)" novalidate>
+        <div class="title">Response</div>
+        <ol class="breadcrumb margin0">
+            <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+            <li><i class="fa-comments-o"></i> <a href="" ng-click="ctrl.goto('Contacts')"> Contact List </a></li>
+            <li class="active"><i class="fa-pencil"></i> Response</li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id" value="40">
+
+            <div class="bg-success_">
+                <div class="form-box ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="title">info</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4"> <strong>Name : </strong> &nbsp; {{ctrl.contactModel.fullName}}
+                        </div>
+                        <div class="col-xs-12 col-sm-5"> <strong>E-mail : </strong> &nbsp;{{ctrl.contactModel.email}}</div>
+                        <div class="col-xs-12 col-sm-3"> <strong>Tel. : </strong> &nbsp; {{ctrl.contactModel.phoneNumber}}</div>
+
+                        <div class="col-xs-12 col-sm-12">
+                            <p><strong>Subject : </strong> &nbsp;{{ctrl.contactModel.subject}} </p>
+                            <p><strong>Message :</strong> &nbsp;{{ctrl.contactModel.detail}} </p>
+                            <p><strong>Date : </strong> &nbsp;{{ctrl.contactModel.submitDate | date:'d MMM yyyy'}} </p>
+                        </div>
+
+                    </div>
+                    <!--row-->
+
+                    <div class="cleaner"></div>
+
+                </div>
+            </div>
+            <!--well-->
+
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-mail-forward"></i> ตอบกลับ </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="form-box ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Responded Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.responsedBy.$invalid && !frmEdit.responsedBy.$pristine }">
+                                    <input class="form-control" id="responsedBy" name="responsedBy" type="text"
+                                        required ng-model="ctrl.contactModel.responsedBy"  maxlength="255"
+                                        ng-class="{ 'is-invalid' : frmEdit.responsedBy.$invalid && !frmEdit.responsedBy.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.responsedBy.$invalid && !frmEdit.responsedBy.$pristine">Response is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Responded Date :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.responsedDate.$invalid && !frmEdit.responsedDate.$pristine }">
+                                    <input type="text" class="form-control" datepicker ng-readonly="true" style="background:white;"
+                                            id="responsedDate" name="responsedDate"
+                                        required ng-model="ctrl.contactModel.responsedDate"
+                                        ng-class="{ 'is-invalid' : frmEdit.responsedDate.$invalid && !frmEdit.responsedDate.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.responsedDate.$invalid && !frmEdit.responsedDate.$pristine">Responsed Date is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Noted : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.noted.$invalid && !frmEdit.noted.$pristine }">
+                                    <textarea class="form-control" id="noted" name="noted"
+                                        required ng-model="ctrl.contactModel.noted"  maxlength="1000"
+                                        ng-class="{ 'is-invalid' : frmEdit.noted.$invalid && !frmEdit.noted.$pristine }" rows="5"></textarea>
+                                    <div class="help-block with-errors" ng-if="frmEdit.noted.$invalid && !frmEdit.noted.$pristine">Note is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+        </div>
+
+        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEdit">
+            <ul>
+                <li><button type="submit"  ng-disabled="ctrl.processing"  class="bt-save">
+                        <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button></li>
+                <li><button ng-click="ctrl.goto('Contacts')" class="bt-clear">Cancel</button></li>
+            </ul>
+        </div>
+    </form>
+</div>
+<!--main-content-->

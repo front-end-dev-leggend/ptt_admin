@@ -1,0 +1,186 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="ApplicationsCtrl as ctrl" ng-show="ctrl.canEditApplications || ctrl.canViewApplications">
+
+    <div class="title"> All Applications </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa-heart"></i> <a href="" ng-click="ctrl.goto('AllApplications')"> Applications System </a></li>
+        <li class="active"><i class="fa-list"></i>  All Applications </li>
+    </ol>
+
+    <div class="h10"></div>
+    <div class="alert alert-info list-search" role="alert">
+        <form name="frmSearch" id="frmSearch" method="POST" ng-submit="ctrl.search(true)">
+            <input name="no-pg" type="hidden" value="10"/>
+            <i class="fa-heart"></i> <strong> Applications Name</strong> : <input type="text" name="search_title" ng-model="ctrl.criteria.applicationName" > &nbsp;|&nbsp; 
+            <i class="fa-sitemap"></i> <strong>Category</strong> : 
+            <select id="search_cate" name="search_cate"
+                ng-model="ctrl.criteria.selectedCategory"
+                ng-options="option.name for option in ctrl.categories track by option.id">
+            </select> &nbsp;|&nbsp; 
+            <i class="fa-heart"></i> <strong>Status</strong></strong> : 
+            <select id="search_cate" name="search_cate"
+                ng-model="ctrl.criteria.selectedStatus"
+                ng-options="option for option in ctrl.status">
+            </select> &nbsp;|&nbsp; 
+            <i class="fa-child"></i> <strong>Permission</strong></strong> : 
+            <select id="search_cate" name="search_cate"
+                ng-model="ctrl.criteria.selectedPermission"
+                ng-options="option.name for option in ctrl.permissions track by option.id">
+            </select> &nbsp;|&nbsp; 
+            <button type="submit" class="bt-search"><strong><i class="fa-search"></i> Search</strong></button>
+            <button class="bt-search" type="reset" ng-click="ctrl.clearSearch()"><strong><i class="fa-times"></i> Clear</strong></button>
+        </form>
+    </div>
+    <div class="h10"></div>
+    
+    
+    <ul class="records-info">
+        <li><a href="" ng-show="ctrl.canEditApplications" ng-click="ctrl.goto('AddApplication')"><button class="btn btn-info">Add Applications </button></a> &nbsp; </li>
+    </ul>
+    
+    <div id="searchresult" class="scroll-x">
+        <table id="DataTableList" class="table table-bordered product-list sorting">
+            <thead>
+                <tr>
+                    <th width="40px"><input type="checkbox" name="all-product" 
+                        ng-click="ctrl.toggleAll()" ng-model="ctrl.isAllSelected"
+                        id="all-product" class="css-checkbox" /><label for="all-product" class="css-label"></label></th>
+                    <th width="10%">
+                        <a ng-click="ctrl.sort_by('n.[Priority]');">No.
+                            <span ng-show="ctrl.criteria.sortingOrder == 'n.[Priority]'">
+                                <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                            </span>
+                            <span ng-show="ctrl.criteria.sortingOrder != 'n.[Priority]'">
+                                <span> <i class="fa fa-sort"></i></span>
+                            </span>
+                        </a>
+                    </th>
+                    <th>
+                        <a ng-click="ctrl.sort_by('c.[Name]');">Category
+                            <span ng-show="ctrl.criteria.sortingOrder == 'c.[Name]'">
+                                <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                            </span>
+                            <span ng-show="ctrl.criteria.sortingOrder != 'c.[Name]'">
+                                <span> <i class="fa fa-sort"></i></span>
+                            </span>
+                        </a>
+                    </th>
+                    <th>
+                        <a ng-click="ctrl.sort_by('n.SystemName');">Applications Name
+                            <span ng-show="ctrl.criteria.sortingOrder == 'n.SystemName'">
+                                <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                            </span>
+                            <span ng-show="ctrl.criteria.sortingOrder != 'n.SystemName'">
+                                <span> <i class="fa fa-sort"></i></span>
+                            </span>
+                        </a>
+                    </th>
+                    <th width="20%">
+                        <a ng-click="ctrl.sort_by('n.Counter');">Counter
+                            <span ng-show="ctrl.criteria.sortingOrder == 'n.Counter'">
+                                <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                            </span>
+                            <span ng-show="ctrl.criteria.sortingOrder != 'n.Counter'">
+                                <span> <i class="fa fa-sort"></i></span>
+                            </span>
+                        </a>
+                    </th>
+                    <th width="10%">Permission</th>
+                    <th width="10%">
+                        <a ng-click="ctrl.sort_by('n.Active');">Status
+                            <span ng-show="ctrl.criteria.sortingOrder == 'n.Active'">
+                                <span ng-show="!ctrl.criteria.reverse"> <i class="fa fa-sort-asc"></i></span>
+                                <span ng-show="ctrl.criteria.reverse"> <i class="fa fa-sort-desc"></i></span>
+                            </span>
+                            <span ng-show="ctrl.criteria.sortingOrder != 'n.Active'">
+                                <span> <i class="fa fa-sort"></i></span>
+                            </span>
+                        </a>
+                    </th>
+                    <th width="10%">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="ctrl.criteria.results.length == 0">
+                    <td colspan="8">No data found</td>
+                </tr>
+                <tr ng-repeat="r in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0">
+                    <td>
+                            <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="chk_del css-checkbox"
+                            ng-model="r.selected" ng-change="ctrl.optionToggled()">
+                            <label for="{{r.id}}" class="css-label"></label>
+                    </td>
+                    <td align="center"><!--<input name="sort" value="1" size="3" class="text-center prod_sort"/>-->
+                        <select name="selPriority" 
+                            class="form-control select-sort"
+                            ng-disabled="!ctrl.canEditApplications"
+                            ng-model="r.priority" ng-change="ctrl.updateApplicationPriority(r.id, r.priority)" ng-options="x for x in r.priorities">
+                        </select>
+                    </td>
+                    <td align="center">
+                        <div class='selected-item-blue'>{{r.category}}</div><div class='cleaner'></div>
+                    </td>
+                    <!-- <td align="center">
+                        <i class="{{r.icon}}"></i>               
+                    </td> -->
+                    <td>
+                        {{r.applicationName}}<div class="h10"></div>
+                    </td>
+                    <td align="center">
+                        {{r.counter | thousandSuffix:1}}
+                    </td>
+                    <td align="center"><div class='widget-box-blue'>{{r.permission}}</div></td>
+                    <td align="center">
+                        <div class="selected-item-green" ng-if="r.status == 'Active'">{{r.status}}</div>
+                        <div class="selected-item-red" ng-if="r.status == 'Inactive'">{{r.status}}</div>
+                    </td>
+                    <td colspan='6' align='center'><a href="" 
+                        ng-class="!ctrl.canEditApplications? 'disabled' : ''"
+                        ng-click="ctrl.goto('EditApplication', r)" class="bt-edit"><i class="fa-pencil"></i> Edit</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ul class="records-info records-info-bottom">
+        <li> </li> <a class="bt-prev" href="" ng-click="ctrl.previousPage()"><i class="fa-caret-left"></i></a> <input type="text" size="3" ng-model="ctrl.criteria.pageNumber"
+            disabled="">
+        <a href=""
+            class="bt-next" ng-click="ctrl.nextPage()"><i class="fa-caret-right"></i></a> From {{ctrl.totalPage}} pages
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li> Item per page
+            <select class="show-rec-no" ng-model="ctrl.criteria.pageSize" ng-change="ctrl.changePageSize()" ng-options="x for x in ctrl.pageSizes">
+            </select> Rows </li>
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li>All <strong>{{ctrl.criteria.total}}</strong> items</li>
+    </ul>
+
+    <div class="tool-bottom col-xs-12" ng-show="ctrl.canEditApplications">
+        <ul>
+            <li><button class="bt-clear" id="bt-clear" 
+                    ng-show="ctrl.showDelete"
+                    ng-click="ctrl.deleteApplications()"><i class="fa-trash"></i> Delete 
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/ng-template" id="confirm-delete.html">
+    
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+</div><!--main-content-->

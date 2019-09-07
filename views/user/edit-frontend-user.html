@@ -1,0 +1,219 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditFrontendUserCtrl as ctrl" class="page-product"  ng-show="ctrl.canEdit">
+    <div class="title">Edit Front End User</div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa fa-user"></i> <a href="" ng-click="ctrl.goto('FrontEndUser')"> Front End User </a></li>
+        <li class="active"><i class="fa fa-pencil"></i> Edit</li>
+    </ol>
+
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submit(frmEdit.$valid)" novalidate>
+        <!--action="fn_save.php"-->
+
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa fa-user"></i> User (Local User) </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="id" value="2">
+                    <div class="form-box">
+                        
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> Company :
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                    <select class="form-control" name="status"
+                                        ng-model="ctrl.model.selectedCompany"
+                                        ng-options="option.name for option in ctrl.companies track by option.id">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> Username :
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : frmEdit.username.$invalid && !frmEdit.username.$pristine }">
+                                        <input class="form-control" id="username" name="username" type="email" placeholder="sample@mail.com"
+                                            required ng-model="ctrl.model.username" maxlength="200" readonly
+                                            ng-class="{ 'is-invalid' : frmEdit.username.$invalid && !frmEdit.username.$pristine }">
+                                        <div class="help-block with-errors" ng-show="!frmEdit.username.$error.username && frmEdit.username.$invalid && !frmEdit.username.$pristine">Username is required.</div>
+                                        <div class="help-block with-errors" ng-show="frmEdit.username.$error.username"> Not valid Email!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> Password :
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                    <div class="form-group" ng-class="{ 'has-error' : frmEdit.password.$invalid && !frmEdit.password.$pristine }">
+                                        <input class="form-control" id="password" name="password" type="password"
+                                            required ng-model="ctrl.model.password" maxlength="200"
+                                            ng-class="{ 'is-invalid' : frmEdit.password.$invalid && !frmEdit.password.$pristine }">
+                                        <div class="help-block with-errors" ng-if="frmEdit.password.$invalid && !frmEdit.password.$pristine">Password is required.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h10"></div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> First Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.firstName.$invalid && !frmEdit.firstName.$pristine }">
+                                    <input class="form-control" id="firstName" name="firstName" type="text"
+                                        required ng-model="ctrl.model.firstName" maxlength="255"
+                                        ng-class="{ 'is-invalid' : frmEdit.firstName.$invalid && !frmEdit.firstName.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.firstName.$invalid && !frmEdit.firstName.$pristine">FirstName is required.</div>
+                                </div>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> Last Name :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.lastName.$invalid && !frmEdit.lastName.$pristine }">
+                                    <input class="form-control" id="lastName" name="lastName" type="text"
+                                        required ng-model="ctrl.model.lastName" maxlength="255"
+                                        ng-class="{ 'is-invalid' : frmEdit.lastName.$invalid && !frmEdit.lastName.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.lastName.$invalid && !frmEdit.lastName.$pristine">Last Name is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> Department :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.department.$invalid && !frmEdit.department.$pristine }">
+                                    <input class="form-control" id="department" name="department" type="text"
+                                        required ng-model="ctrl.model.department" maxlength="1000"
+                                        ng-class="{ 'is-invalid' : frmEdit.department.$invalid && !frmEdit.department.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.department.$invalid && !frmEdit.department.$pristine">Department is required.</div>
+                                </div>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"><span class="required-red">*</span> E-Mail :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.x_email.$invalid && !frmEdit.x_email.$pristine }">
+                                    <input class="form-control" id="x_email" name="x_email" type="email"
+                                        required ng-model="ctrl.model.email" maxlength="1000"
+                                        ng-class="{ 'is-invalid' : frmEdit.email.$invalid && !frmEdit.x_email.$pristine }">
+                                    <div class="help-block with-errors" ng-if="!frmEdit.x_email.$error.x_email && frmEdit.x_email.$invalid && !frmEdit.x_email.$pristine">Email is required.</div>
+                                    <div class="help-block with-errors" ng-show="frmEdit.x_email.$error.x_email"> Not valid Email!</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="form-group ">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> User Group Name
+                                : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <select class="form-control" name="group" ng-model="ctrl.model.selectedGroup"
+                                    ng-options="option.name for option in ctrl.groups track by option.id">
+                                </select>
+                            </div>
+
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-2 control-labe text-right"> Status :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-4">
+                                <select class="form-control" name="status"
+                                    ng-model="ctrl.model.status">
+                                    <option ng-repeat="x in ctrl.status" value="{{x}}" class="black">{{x}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clearfix h20"></div>
+
+                    </div>
+
+                    <input type="hidden" value="addUser" name="action">
+                    <div class="center">
+                        <button type="submit"
+                        ng-disabled="ctrl.processing" class="bt-save">
+                            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+                        <button type="button" ng-click="ctrl.goto('FrontEndUser')" class="bt-clear">Cancel</button>
+                    </div>
+                    <div class="h30"></div>
+
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+        </div>
+        
+    </form>
+
+    <div class="h30"></div>
+
+    
+    <script type="text/ng-template" id="search-user.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" ng-click="close()">&times;</span>
+            </button>
+            <h4 class="modal-title" id="ModalLabel">รายชื่อ</h4>
+        </div>
+        <div class="modal-body" id="modal-body-editor">
+            <div class="form-box" ng-if="!loading && users.length > 0">
+                <div class="form-group">
+                    <div class="col-sm-3"><strong>รหัส</strong></div>
+                    <div class="col-sm-6"><strong>ชื่อ สกุล</strong></div>
+                    <!-- <div class="col-sm-3"><strong>สกุล</strong></div> -->
+                    <div class="col-sm-3 text-center"><strong>เลือก</strong></div>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="form-group" ng-repeat="u in users">
+                    <div class="col-sm-3">{{u.userID}}</div>
+                    <div class="col-sm-6">{{u.firstName}}</div>
+                    <!-- <div class="col-sm-3">{{u.lastName}}</div> -->
+                    <div class="col-sm-3 text-center">
+                        <button type="button" class="btn-primary bt-choose" ng-click="selectUser(u)">
+                            <i class="fa fa-check-circle"></i> เลือก
+                        </button>
+                    </div>
+                    <div class="cleaner"></div>
+                </div>
+            </div>
+            <div class="form-box" ng-if="loading">
+                <div style="text-align: left">
+                    <img src="svg-loaders/oval.svg" width="30" alt=""> please wait..
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <div class="form-box" ng-if="!loading && users.length == 0">
+                <div class="form-group">
+                    <div class="col-sm-3"><strong>รหัส</strong></div>
+                    <div class="col-sm-6"><strong>ชื่อ สกุล</strong></div>
+                    <!-- <div class="col-sm-3"><strong>สกุล</strong></div> -->
+                    <div class="col-sm-3 text-center"><strong>เลือก</strong></div>
+                    <div class="cleaner"></div>
+                </div>
+                <div class="col-sm-12">No data found.</div>
+                <div class="cleaner"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="bt-clear" ng-click="close()">Close</button>
+        </div>
+    </script>
+</div>
+<!--main-content-->

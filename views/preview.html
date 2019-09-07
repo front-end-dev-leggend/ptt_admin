@@ -1,0 +1,282 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="PreviewCtrl as ctrl">
+
+    <link rel="stylesheet" href="css/coolcarousel/carousel.css" type="text/css" />
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="css/portalstyle.css" />
+
+    <!--<div class="left-logo">
+            <img src="../images/login-left.png" class="img-fluid">
+            </div> -->
+    <div class="all-container" ng-if="ctrl.displayLayout == 'LAYOUT_ANNOUNCEMENT'">
+        <div class="bg-content">
+            <div class="container-fluid" style="padding-top: 60px">
+
+                <div id="right-menu-mb"> </div>
+                <div class="cleaner"></div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-sm-4 col col-lg-4 all-left-menu">
+                        <div id="Mainmenu"></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="col-sm-8 col col-lg-8">
+
+                        <div class="box-topic"><a href="javascript:void(0)">News</a> <strong class="active">>
+                                {{ctrl.model.categoryName}}</strong></div>
+                        <div class="title-award">
+                            {{ctrl.model.announceDate | date:'dd/MM/yyyy'}}<br><strong>{{ctrl.model.topic}}</strong>
+                        </div>
+
+                        <div class="cleaner"></div>
+                        <div class="text-view-award">
+                            <div ng-bind-html="$sce.trustAsHtml(ctrl.model.description)"></div>
+                        </div>
+                        <div class="cleaner h10"></div>
+
+                        <div id="thumbs-wrapper">
+                            <div id="thumbs">
+
+                                <a href="{{item.filePath}}" data-fancybox="gallery" data-caption="{{item.fileName}}"
+                                    ng-repeat="item in ctrl.model.images">
+                                    <img ng-src="{{item.filePath}}"> </a>
+
+                                <div class="cleaner h20"></div>
+                            </div>
+                            <a id="prev" href="#"></a>
+                            <a id="next" href="#"></a>
+                        </div>
+                        <div class="cleaner h30"></div>
+                        <a href="javascript:void(0)">
+                            <div class="all-download-img"> <img src="images/icon-download.png" class="img-fluid">
+                                Download
+                                All Image </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="cleaner"></div>
+                <div class="col-12 text-right py-1 "><a href="javascript:void(0)"> Sitemap <i
+                            class="fas fa-sitemap"></i></a> </div>
+            </div>
+        </div>
+    </div>
+    <!--all-container-->
+
+    <div class="all-container" ng-if="ctrl.displayLayout == 'LAYOUT_ACTIVITY'">
+        <div class="bg-content">
+            <div class="container-fluid" style="padding-top: 60px">
+
+                <div id="right-menu-mb"> </div>
+                <div class="cleaner"></div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-sm-4 col col-lg-4 all-left-menu">
+                        <div id="Mainmenu"></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="col-sm-8 col col-lg-8">
+
+                        <div class="box-topic">
+                            <a href="" ng-click="false">News</a> <strong class="active"> >
+                                {{ctrl.model.categoryName}}</strong>
+                        </div>
+
+                        <div class="title-award">
+                            {{ctrl.model.announceDate | date:'dd/MM/yyyy'}}<br><strong>{{ctrl.model.topic}}</strong>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="row" ng-if="ctrl.loading">
+                            <div class="col-12 col-sm-12 col-md-12 text-center">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="!ctrl.loading">
+                            <div class="col-12 col-sm-12 col-md-12 text-center">
+                                <div id="carousel-wrapper">
+                                    <div id="carousel">
+
+                                        <a ng-repeat="item in ctrl.model.images" href="{{item.filePath}}"
+                                            id="{{'gallery'+$index}}" rel="gallery" title="{{item.fileName}}"
+                                            data-fancybox="gallery" data-caption="{{item.fileName}}">
+                                            <img ng-src="{{item.filePath}}">
+                                        </a>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="h20"></div>
+
+                                <div id="thumbs-wrapper">
+                                    <div id="thumbs">
+                                        <a ng-repeat="item in ctrl.model.images" ng-href="{{'#gallery'+ $index}}">
+                                            <img ng-src="{{item.filePath}}">
+                                        </a>
+                                    </div>
+                                    <a id="prev" href="#"></a>
+                                    <a id="next" href="#"></a>
+                                </div>
+
+                                <div class="cleaner h10"></div>
+                            </div>
+                        </div>
+
+                        <div class="cleaner h30"></div>
+
+                        <a href="javascript:void(0)">
+                            <div class="all-download-img"> <img src="images/icon-download.png" class="img-fluid">
+                                Download All Image </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="cleaner"></div>
+                <div class="col-12 text-right py-1 "><a href="javascript:void(0)"> Sitemap <i
+                            class="fas fa-sitemap"></i></a> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-container" ng-if="ctrl.displayLayout == 'LAYOUT_AWARD'">
+        <div class="bg-content">
+            <div class="container-fluid" style="padding-top: 60px">
+
+                <div id="right-menu-mb"> </div>
+                <div class="cleaner"></div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-sm-4 col col-lg-4 all-left-menu">
+                        <div id="Mainmenu"></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="col-sm-8 col col-lg-8">
+
+                        <div class="box-topic">
+                            <a href="" ng-click="false">News</a> <strong class="active"> >
+                                {{ctrl.model.categoryName}}</strong>
+                        </div>
+
+                        <div class="title-award">
+                            {{ctrl.model.announceDate | date:'dd/MM/yyyy'}}<br><strong>{{ctrl.model.topic}}</strong>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="row" ng-if="ctrl.loading">
+                            <div class="col-12 col-sm-12 col-md-12 text-center">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                            </div>
+                        </div>
+                        <div class="text-view-award" ng-if="!ctrl.loading">
+                            <div ng-bind-html="$sce.trustAsHtml(ctrl.model.description)"></div>
+                        </div>
+
+                        <div class="h30"></div>
+
+                        <div id="thumbs-wrapper">
+                            <div id="thumbs">
+                                <a href="{{item.filePath}}" data-fancybox="gallery" data-caption="{{item.fileName}}"
+                                    ng-repeat="item in ctrl.model.images">
+                                    <img ng-src="{{item.filePath}}">
+                                </a>
+                                <div class="cleaner h20"></div>
+                            </div><!--thumbs-->
+                            <a id="prev" href="#"></a>
+                            <a id="next" href="#"></a>
+                        </div>
+
+                        <a href="javascript:void(0)">
+                            <div class="all-download-img"> <img src="images/icon-download.png" class="img-fluid">
+                                Download All Image </div>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="cleaner"></div>
+                <div class="col-12 text-right py-1 "><a href="javascript:void(0)"> Sitemap <i
+                            class="fas fa-sitemap"></i></a> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-container" ng-if="ctrl.displayLayout == 'LAYOUT_ABOUT'">
+        <div class="bg-content">
+            <div class="container-fluid" style="padding-top: 60px">
+
+                <div id="right-menu-mb"> </div>
+                <div class="cleaner"></div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-sm-4 col col-lg-4 all-left-menu">
+                        <div id="Mainmenu"></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="col-sm-8 col col-lg-8">
+                        <div class="row ">
+                            <div class="col-12 col-md-12 d-flex">
+                                <div class="box-topic">
+                                    About SM <span class="active"><i class="fas fa-chevron-right"></i>  {{ctrl.model.title}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner h30"></div>
+                        <div ng-bind-html="$sce.trustAsHtml(ctrl.model.content)"></div>
+                    </div>
+                </div>
+                <div class="cleaner h20"></div>
+            </div>
+            
+            <div id="footer">
+                <div class="cleaner"></div>
+                <div class="col-12 text-right py-1 "><a href="javascript:void(0)"> Sitemap <i
+                            class="fas fa-sitemap"></i></a> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="all-container" ng-if="ctrl.displayLayout == 'NOTSUPPORT'">
+        <div class="bg-content">
+            <div class="container-fluid" style="padding-top: 60px">
+
+                <div id="right-menu-mb"> </div>
+                <div class="cleaner"></div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-sm-4 col col-lg-4 all-left-menu">
+                        <div id="Mainmenu"></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="col-sm-8 col col-lg-8">
+
+                        <div class="box-topic">
+                            <p>Not supported display.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="cleaner"></div>
+                <div class="col-12 text-right py-1 "><a href="javascript:void(0)"> Sitemap <i
+                            class="fas fa-sitemap"></i></a> </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    
+
+
+    <script type="text/javascript" src="js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="css/coolcarousel/jquery.carouFredSel-6.0.4-packed.js"></script>
+
+</div>

@@ -1,0 +1,83 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="ActivityLogCtrl as ctrl" ng-show="ctrl.canView || ctrl.canEdit">
+    <div class="title"> Activity Log
+    </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li><i class="fa-file-text-o"></i>Logs</li>
+        <li class="active"><i class="fa-list"></i> Activity Log </li>
+    </ol>
+
+
+    <div class="h10"></div>
+    <div class="alert alert-info list-search" role="alert">
+        <form name="frmSearch" id="frmSearch" method="POST" ng-submit="ctrl.search(true)">
+            <input name="no-pg" type="hidden" value="10">
+            <i class="fa-newspaper-o"></i> <strong> UserID </strong> : <input type="text" name="search_title"
+                ng-model="ctrl.criteria.userId" value="">
+            &nbsp;|&nbsp; Activity Date Duration </strong> :
+            <input type="text" datepicker ng-readonly="true" style="background:white;" name="search_docdate_start"
+                ng-model="ctrl.criteria.dateFrom"> - <input type="text" datepicker ng-readonly="true"
+                style="background:white;" name="search_docdate_end" ng-model="ctrl.criteria.dateTo">
+            <div class="cleaner h10"></div>
+            <button type="submit" class="bt-search"><strong><i class="fa-search"></i>
+                    Search</strong></button>
+            <button class="bt-search" ng-click="ctrl.clearSearch()"><strong><i class="fa-times"></i>
+                    Clear</strong></button>
+        </form>
+    </div>
+    <div class="h10"></div>
+
+
+    <ul class="records-info" style="float: right" ng-show="ctrl.canEdit">
+        <li><a href="" ng-click="ctrl.download()"><button class="btn btn-info"><i class="fa-file-excel-o"></i> Export </button></a> &nbsp; </li>
+    </ul>
+
+    <div id="searchresult" class="scroll-x">
+        <table class="table table-bordered product-list sorting">
+            <tbody>
+                <tr>
+                    <th width="6%">UserID</th>
+                    <th>Message</th>
+                    <th width="13%">Timestamp</th>
+                    <th width="10%">Function</th>
+                    <th width="5%">Event</th>
+                    <th width="5%">ItemID</th>
+                </tr>
+                <tr ng-if="ctrl.criteria.results.length == 0">
+                    <td colspan="6">No data found</td>
+                </tr>
+                <tr ng-repeat="r in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0">
+                    <td  align="center">{{r.userId}}</td>
+                    <td>{{r.message}}</td>
+                    <td  align="center">{{r.timestamp | date:'d MMM yyyy @ HH:mm'}}</td>
+                    <td  align="center">{{r.function}}</td>
+                    <td  align="center">{{r.event}}</td>
+                    <td  align="center">{{r.itemId}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ul class="records-info records-info-bottom">
+        <li> </li> <a class="bt-prev" href="" ng-click="ctrl.previousPage()"><i class="fa-caret-left"></i></a> <input
+            type="text" size="3" ng-model="ctrl.criteria.pageNumber" disabled="">
+        <a href="" class="bt-next" ng-click="ctrl.nextPage()"><i class="fa-caret-right"></i></a> From {{ctrl.totalPage}}
+        pages
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li> Item per page
+            <select class="show-rec-no" ng-model="ctrl.criteria.pageSize" ng-change="ctrl.changePageSize()"
+                ng-options="x for x in ctrl.pageSizes">
+            </select> Rows </li>
+        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+        <li>All <strong>{{ctrl.criteria.total}}</strong> items</li>
+    </ul>
+
+    <div class="h10"></div>
+    <div class="tool-bottom col-xs-12">
+    </div>
+</div>

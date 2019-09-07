@@ -1,0 +1,309 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="EditPolicyCtrl as ctrl" ng-show="ctrl.canEdit">
+    
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submitPolicy(frmEdit.$valid)" novalidate>
+        <div class="title">{{ctrl.title}}</div>
+
+        <ol class="breadcrumb margin0">
+            <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+            <li><i class="fa-newspaper-o"></i> <a href="" ng-click="ctrl.goto('AllPolicy')">Policy & Target</a></li>
+            <li class="active"><i class="fa-pencil"></i> {{ctrl.title}} </li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <input type="hidden" name="action" value="add">
+            <input type="hidden" name="id" value="1">
+            <div class="widget-box-blue">
+                <div class="widget-title" lang="th"><i class="fa-info"></i> Info </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="form-box">
+                        <div class="text-right"> No more than <span class="red">200</span> characters </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"><span class="required-red">*</span> Topic :
+                            </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <input class="form-control" id="name_th" name="name_th" type="text"
+                                        required ng-model="ctrl.policyModel.topic" ng-maxlength="ctrl.topicMaxLength"
+                                        limit-to="{{ctrl.topicMaxLength}}" maxlength="200"
+                                        ng-class="{ 'is-invalid' : frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.name_th.$invalid && !frmEdit.name_th.$pristine">Topic is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="text-right"><span id="chars" class="red">{{ctrl.topicMaxLength - ctrl.policyModel.topic.length}}</span> characters remaining </div>
+                        <div class="cleaner"></div>
+                        
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">
+                                    <span class="required-red">*</span> Document Date : </label>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                <div class="form-group" ng-class="{ 'has-error' : frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine }">
+                                    <input type="text" class="form-control" datepicker ng-readonly="true" style="background:white;"
+                                         id="documentdate" name="documentdate"
+                                        required ng-model="ctrl.policyModel.documentDate"
+                                        ng-class="{ 'is-invalid' : frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmEdit.documentdate.$invalid && !frmEdit.documentdate.$pristine">Document Date is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <!--widget-inbox-->
+            <div class="widget-box-sky">
+                <div class="widget-title" lang="th"><i class="fa-photo"></i> Cover Image </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                        <p class="red">* ขนาดรูปที่แนะนำ 1000x666 pixels และควรมีขนาดไม่เกิน 3MB</p>
+                    <!--profile-box-->
+                    <input type="hidden" name="id_cover" value="">
+                    <div class="profile-box" style="text-align: center">
+                        <div class="profile-image" style="padding-bottom: 35%"><!--images/nopic.png-->
+                            <div class="bt-del-image" ng-click="ctrl.deleteCoverImage()" data-file="c1429a213d052139ae051d7c074e83bb.png" data-action="del-image"><svg class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></div>
+                            <img src="{{ctrl.policyModel.thumbnail}}" ng-click="ctrl.uploadCoverImage()" alt="profile-picture" class="img-responsive">
+                        </div>
+                        <div class="btn btn-sm btn-submit" data-toggle="modal" data-target="#avatar-modal">
+                                <a href="" ng-click="ctrl.uploadCoverImage()"><i class="ion-images"></i> Choose cover image</a>
+                        </div>
+                    </div>
+                    <!--profile-box-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="widget-box-grey">
+                <div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Create Date : </div>
+                        <div class="col-xs-8" ng-if="ctrl.policyModel.createdDate">
+                            {{ctrl.policyModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.policyModel.createdDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.policyModel.createdBy">
+                            {{ctrl.policyModel.createdBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.policyModel.createdBy">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Last Modify : </div>
+                        <div class="col-xs-8" ng-if="ctrl.policyModel.updatedDate">
+                            {{ctrl.policyModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.policyModel.updatedDate">
+                                -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.policyModel.updatedBy">
+                            {{ctrl.policyModel.updatedBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.policyModel.updatedBy">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.policyModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-green">
+                <div class="widget-title" lang="th"><i class="fa-sitemap"></i> Category</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+                        <select id="search_cate" class="form-control" name="search_cate"
+                            ng-model="ctrl.policyModel.selectedCategory"
+                            ng-options="option.name for option in ctrl.categories track by option.id">
+                        </select>
+                    </div>
+                    <!--widget-inbox-cate-->
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-red">
+                <div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+                    
+                        For :
+                        <select id="select-tag form-control" class="select-tag form-control" name="permission" ng-model="ctrl.policyModel.selectedPermission"
+                            ng-options="option.name for option in ctrl.permissions track by option.id">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget-box-violet">
+                <div class="widget-title" lang="th"><i class="fa-file-pdf-o"></i> File Upload </div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                        <span style="color: red;font-size: 12px;cursor: pointer;float: right;" ng-click="ctrl.removeFile()" 
+                        ng-if="ctrl.policyModel.fileName != null"><svg class="svg-inline--fa fa-times fa-w-11" width="12px"
+                            aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times" role="img"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg="">
+                            <path fill="currentColor"
+                                d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                            </path>
+                        </svg></span>
+                    <div class="product-images">
+                        <div class='add-pdf' 
+                            ngf-select="ctrl.selectFile()" 
+                            ng-model="ctrl.file"
+                            ngf-model-invalid="invalidFiles" 
+                            ngf-change="ctrl.validateFile($invalidFiles)"
+                            ngf-pattern="'application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ptt,.pptx,.jpg,.png,.txt,application/zip,application/x-zip-compressed,application/x-rar-compressed'"
+                            ngf-accept="'application/pdf,.pdf,.doc,.docx,.xls,.xlsx,.ptt,.pptx,.jpg,.png,.txt,application/zip,application/x-zip-compressed,application/x-rar-compressed'"
+                            ngf-max-size="50MB">
+                            <span><i class='fa-file-pdf-o'></i>
+                                <a class='text' ng-if="ctrl.policyModel.fileName == null">Choose File  <span class="required-red" style="color: red !important;font-size: 2.4rem">*</span></a>
+                                <a class='text' style="word-wrap: break-word;"
+                                    ng-if="ctrl.policyModel.fileName != null && ctrl.policyModel.fileName.length > 0">
+                                    {{ctrl.policyModel.fileName}}</a>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="cleaner"></div>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+        </div>
+        
+        <div class="cleaner"></div>
+        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEdit">
+            <button type="submit" ng-disabled="ctrl.processing" 
+                class="bt-save">
+            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+            <button type="button" ng-click="ctrl.goto('AllPolicy')" class="bt-clear">Cancel</button>
+        </div>
+    </form>
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+    <script type="text/ng-template" id="upload-cover.html">
+        <div class="modal-header">
+            <h3 class="modal-title" style="display: inline;">Cover image</h3>
+            <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body  text-center" id="modal-body-editor" ng-if="myImage === ''">
+            <div class="form-group text-center">
+                <input type="file" id="fileInput" style="display:none" name="fileInput"/>
+                <div class="avatar-wrapper" style="display: block;">
+                        <div class="select-image" ng-click="triggerUpload()">
+                            <svg class="svg-inline--fa fa-image fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path></svg>
+                            Click for Upload 
+                        </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br/>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+        <div class="modal-body text-center" id="modal-body-editor"  ng-if="myImage !== ''">
+            <div class="cropArea">
+                <ui-cropper image="myImage" area-type="rectangle" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
+            </div>
+            <br/>
+            <a id="cropAvatar" class="btn btn-submit btn-sm" ng-click="cropFuntion()">Crop</a>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+    </script>
+    <script type="text/ng-template" id="upload-cover.html">
+        <div class="modal-header">
+            <h3 class="modal-title" style="display: inline;">Cover image</h3>
+            <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body  text-center" id="modal-body-editor" ng-if="myImage === ''">
+            <div class="form-group text-center">
+                <input type="file" id="fileInput" style="display:none" name="fileInput"/>
+                <div class="avatar-wrapper" style="display: block;">
+                        <div class="select-image" ng-click="triggerUpload()">
+                            <svg class="svg-inline--fa fa-image fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path></svg>
+                            Click for Upload 
+                        </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br/>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+        <div class="modal-body text-center" id="modal-body-editor"  ng-if="myImage !== ''">
+            <div class="cropArea">
+                <ui-cropper image="myImage" area-type="rectangle" result-image-size="'max'" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
+            </div>
+            <br/>
+            <a id="cropAvatar" class="btn btn-submit btn-sm" ng-click="cropFuntion()">Crop</a>
+            <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+        </div>
+    </script>
+    <script src="js/bws.js"></script>
+</div>

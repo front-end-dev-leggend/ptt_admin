@@ -1,0 +1,98 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="DashboardCtrl as ctrl">
+    <div ng-show="ctrl.loading" class="center-page">
+        <img src="svg-loaders/oval.svg" width="50" alt="">
+        <div>loading...</div>
+    </div>
+    <div class="welcome"  ng-show="!ctrl.loading">
+        <p><img src="images/logo_ptt.png" border="0"></p>
+        <h2 class="font26">ยินดีต้อนรับ</h2>
+        <h2>เข้าสู่ระบบจัดการของ "<span class="green">SM Gateway</span>"</h2>
+        <br />
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewApplications || ctrl.canEditApplications">
+            <a href="" ng-click="ctrl.goto('AllApplications')">
+                <div class="box-info-box-1">
+                    <p class="info-titile">Applications</p>
+                    <p class="value">{{ctrl.totalApplication}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.viewNews || ctrl.canEditNews">
+            <a href="" ng-click="ctrl.goto('AllNews')">
+                <div class="box-info-box-2">
+                    <p class="info-titile">News</p>
+                    <p class="value">{{ctrl.totalNews}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewPolicy || ctrl.canEditPolicy">
+            <a href="" ng-click="ctrl.goto('AllPolicies')">
+                <div class="box-info-box-3">
+                    <p class="info-titile">Policy & Target</p>
+                    <p class="value">{{ctrl.totalPolicy}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewDownload || ctrl.canEditDownload">
+            <a href="" ng-click="ctrl.goto('AllDownload')">
+                <div class="box-info-box-4">
+                    <p class="info-titile">Download</p>
+                    <p class="value">{{ctrl.totalDownload}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewAbout || ctrl.canEditAbout">
+            <a href="" ng-click="ctrl.goto('AboutCategory')">
+                <div class="box-info-box-5">
+                    <p class="info-titile">About SM</p>
+                    <p class="value">{{ctrl.totalAbout}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewFaqs || ctrl.canEditFaqs">
+            <a href="" ng-click="ctrl.goto('FAQs')">
+                <div class="box-info-box-8">
+                    <p class="info-titile">FAQs</p>
+                    <p class="value">{{ctrl.totalFAQ}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="ctrl.canViewUserGroup || ctrl.canEditUserGroup">
+            <a href="" ng-click="ctrl.goto('Groups')">
+                <div class="box-info-box-10">
+                    <p class="info-titile">Permission Setting</p>
+                    <p class="value">{{ctrl.totalGroup}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="javascript:void(0)">
+                <div class="box-info-box-11">
+                    <p class="info-titile">Media</p>
+                    <p class="value">{{ctrl.totalMedia}}</p>
+                    <p class="detail">รายการ</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>

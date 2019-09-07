@@ -1,0 +1,241 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="ApplicationCategoryCtrl as ctrl" class="page-product" ng-show="ctrl.canViewCategoryApplications || ctrl.canEditCategoryApplications">
+
+    <div class="title"> Category </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li class="active"><i class="fa-cube"></i> Category </li>
+    </ol>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="widget-box-turquoise">
+            <div class="widget-title" lang="th"><i class="fa-cubes"></i> {{ctrl.title}}</div>
+            <ul class="widget-tool navbar-right">
+                <li><i class="fa-caret-up show-hide-widget"></i></li>
+            </ul>
+            <div class="widget-inbox">
+                <form name="frmCategory" method="POST" ng-submit="ctrl.saveCategory(frmCategory.$valid)" id="frmCategory" novalidate>
+                    <div class="form-box">
+                        <div class="form-group">
+                            <label class="control-labe">Name Category <span class="required-red">*</span> </label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <input class="form-control" id="cate_name" name="cate_name" type="text"
+                                    required ng-model="ctrl.editObj.name"  maxlength="200"
+                                    ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <ul class="main-cate">
+                                <li class="padding5">Status : 
+                                    <div class="switch">
+                                        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" value="1" ng-model="ctrl.editObj.status" name="status"  ng-true-value="'Active'" ng-false-value="'Inactive'">
+                                        <label for="cmn-toggle-1"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <small class="red">*หากมีการใส่ icon และภาพ ระบบจะใช้ icon เป็นหลัก </small> -->
+                        <div class="cleaner"></div>
+                                                    
+                        <div class="form-group">
+                            <label class="control-labe"> Icon : </label>
+                            <div class="cleaner"></div>
+                            <input type="text" class="form-control" ng-model="ctrl.editObj.icon" name="cate_icon" value="">
+                            <small class="red">*ตัวอย่างในการใส่ไอคอน "&quot;fa fa-ad&quot;"  
+                            <br>ไอคอนต่างๆดูได้ </small>
+                            <a href="https://fontawesome.com/icons?d=gallery&m=free" class="btn btn-danger" target="_blank">ที่นี่ </a>
+
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <label class="col-xs-12 control-labe  ">color : </label>
+                            <div class="col-xs-12 ">
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#fcb712"  ng-model="ctrl.editObj.color"> <span style="color:#fcb712;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#8f1838" ng-model="ctrl.editObj.color"> <span style="color:#8f1838;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#ce8d29" ng-model="ctrl.editObj.color"> <span style="color:#ce8d29;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#f36d24" ng-model="ctrl.editObj.color"> <span  style="color:#f36d24;"> <i class="fas fa-tint"></i></span>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <span  style="color:#fcb712;"> #fcb712 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#8f1838;"> #8f1838 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#ce8d29;"> #ce8d29 </span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#f36d24;"> #f36d24 </span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#47773d" ng-model="ctrl.editObj.color"><span  style="color:#47773d;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#007dbd" ng-model="ctrl.editObj.color"><span  style="color:#007dbd;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#3db049" ng-model="ctrl.editObj.color"><span  style="color:#3db049;"> <i class="fas fa-tint"></i></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="radio" name="color" value="#02558b" ng-model="ctrl.editObj.color"><span  style="color:#02558b;"> <i class="fas fa-tint"></i></span>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <span  style="color:#47773d;"> #47773d</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#007dbd;"> #007dbd</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#3db049;"> #3db049</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span  style="color:#02558b;"> #02558b</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <!-- <div class="form-group">
+                            <label class="control-labe">รูปภาพหมวดหมู่ </label>
+                            <p class="small red">** ขนาดรูปที่แนะนำ 1000x666 pixels และควรมีขนาดไม่เกิน 3MB</p>
+                            <div class="product-images" ng-if="ctrl.editObj === null || (!ctrl.editObj.iconImagePath && !ctrl.file)">
+                                <div class="add-img" ngf-select="ctrl.setImage(ctrl.file)" 
+                                ng-model="ctrl.file"
+                                ngf-pattern="'image/*'"
+                                ngf-max-size="3MB"
+                                ngf-accept="'image/*'">
+                                    <span><i class="fa-image"></i><a class="text">เลือกรูปภาพ</a></span>
+                                </div>
+                                <div class="cleaner h10"></div>
+                            </div>
+                            
+                            <div class="product-images" ng-if="ctrl.editObj !== null && (ctrl.editObj.iconImagePath.length > 0 || ctrl.editObj.file !== null)">
+                                    <div class="add-img" ngf-select="ctrl.setImage(ctrl.file)" 
+                                    ng-model="ctrl.editObj.file"
+                                    ngf-pattern="'image/*'"
+                                    ngf-max-size="3MB"
+                                    ngf-accept="'image/*'" style="padding-top: 0px; padding-bottom: 0px;">
+                                        <img ngf-thumbnail="ctrl.editObj.file || ctrl.editObj.iconImagePath" width="width: 100%;" style="width: 100%" >
+                                    </div>
+                                    <span style="color: red;font-size: 12px;cursor: pointer;" ng-click="ctrl.removeImage()"><svg class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span>
+                                    <div class="cleaner h10"></div>
+                                </div>
+                        </div> -->
+                        <div class="cleaner h10"></div>
+                        <input type="hidden" name="action" value="add-cate"/>
+                        <input type="hidden" name="id" value="3"/>
+                        <input type="hidden" name="showindex" value=""/>
+                        
+                        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+                        <div class="form-box" ng-show="ctrl.canEditCategoryApplications" ng-if="ctrl.state == 'add'" ng-disabled="ctrl.processing">
+                            <button type="submit" class="bt-add">+ Add</button>
+                        </div>   
+                        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEditCategoryApplications" ng-if="ctrl.state == 'edit'">
+                            <ul  style="cursor: pointer;">
+                                <li>
+                                    <button type="submit" class="bt-save"  ng-disabled="ctrl.processing" >
+                                            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i>Save</button>
+                                </li>
+                                <li>
+                                    <a class="bt-clear" ng-click="ctrl.cancelCategory()">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+            <!--widget-inbox-->
+        </div>
+        <!--widget-box-->
+    </div>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="widget-box-grey">
+            <div class="widget-title" lang="th"><i class="fa-list"></i> List Category</div>
+            <ul class="widget-tool navbar-right">
+                <li class="btn-danger" ng-show="ctrl.canEditCategoryApplications"><i class="fa-trash del-cate" ng-click="ctrl.deleteCategory()"></i></li>
+                <li><i class="fa-caret-up show-hide-widget"></i></li>
+            </ul>
+            <div class="widget-inbox">
+                <div class="scroll-y">
+                    <table class="table table-bordered record-list">
+                        <tr>
+                            <th width="5%"><input type="checkbox" name="all-record" id="all-record" class="css-checkbox" ng-click="ctrl.toggleAll()" ng-model="ctrl.isAllSelected" /><label for="all-record" class="css-label"></label></th>
+                            <th width="10%">No.</th>
+                            <th width="8%"> Icon </th>
+                            <!-- <th width="8%"> Images </th> -->
+                            <th width="30%">Name Category </th>
+                            <th align="center" width="10%">Status </th>
+                            <th width="10%"></th>
+                        </tr>
+                        <tr ng-repeat="r in ctrl.categories" ng-class="{'warning': r.selected}">
+                            <td align="center">
+                                <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="css-checkbox chk_del"
+                                ng-model="r.selected" ng-change="ctrl.optionToggled()">
+                                <label for="{{r.id}}" class="css-label"></label>
+                            </td>
+                            <td align="center">
+                                <select name="selPriority" 
+                                ng-disabled="!ctrl.canEditCategoryApplications"
+                                ng-model="r.priority" 
+                                ng-change="ctrl.updateCategoryPriority(r)" ng-options="x for x in r.priorities"></select>
+                            </td>
+                            <td align="center"><i class="{{r.icon}}"></i></td>
+                            <!-- <td align="center"><img ng-if="r.iconImagePath !== null" ng-src="{{r.iconImagePath}}"></td> -->
+                            <td><span class="name_text"><strong>{{r.name}}</strong></span><input class="name_input form-control hide" value="Activity & Gallery"/>
+                            </td>
+                            <td align="center">
+                                <div class="publushed" ng-show="ctrl.canEditCategoryApplications" ng-class="{'unpublushed': r.status == 'Inactive'}">
+                                        <select class="select-publushed chk_show"
+                                        data-id="24"
+                                        ng-model="r.status" ng-change="ctrl.updateCategoryStatus(r)">
+                                            <option ng-repeat="x in ctrl.status" value="{{x}}" class="black">{{x}}</option>
+                                        </select>
+                                </div>
+                                <div class="vpublushed" ng-show="!ctrl.canEditCategoryApplications" ng-class="{'vunpublushed': r.status == 'Inactive'}">
+                                    {{r.status}}
+                                </div>
+                            </td>
+                            <td><a href="" class="bt-edit"
+                                ng-class="!ctrl.canEditCategoryApplications? 'disabled' : ''"
+                                ng-click="ctrl.editCategory(r)"><i class="fa-pencil"></i> Edit</a></td>
+                        </tr>             
+                    </table>
+                </div>
+            </div>
+            <!--widget-inbox-->
+        </div>
+
+    </div>
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+	<script src="js/bws.js"></script>
+</div>
+<!--main-content-->

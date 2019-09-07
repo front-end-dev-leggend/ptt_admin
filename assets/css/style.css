@@ -1,0 +1,61 @@
+.form-group .has-danger .help-block {
+    display: block;
+}
+.form-group .help-block {
+    display: none;
+}
+.switch-active, .switch-inactive {font-size:40px;cursor:pointer;}
+.switch-active, .switch-inactive {font-size:40px;cursor:pointer;}
+i.switch-active { color: #5cb85c}
+i.switch-inactive {color: #d9534f}
+
+.middle-text td{
+    vertical-align: middle;
+}
+
+.pagination {
+    margin: 0px !important;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #00000042;
+}
+@keyframes check {0% {height: 0;width: 0;}
+25% {height: 0;width: 10px;}
+50% {height: 15px;width: 10px;}
+}
+.checkbox{background-color:#fff;display:inline-block;height:18px;margin:0 .25em;width:18px;border-radius:4px;border:1px solid #ccc;float:right}
+.checkbox span{display:block;height:18px;position:relative;width:18px;padding:0}
+.checkbox span:after {
+    -moz-transform: scaleX(-1) rotate(135deg);
+    -ms-transform: scaleX(-1) rotate(135deg);
+    -webkit-transform: scaleX(-1) rotate(135deg);
+    transform: scaleX(-1) rotate(135deg);
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    border-right: 2px solid #fff;
+    border-top: 2px solid #fff;
+    content: '';
+    display: block;
+    height: 15px;
+    left: 1px;
+    position: absolute;
+    top: 8px;
+    width: 8px;
+}
+.checkbox span:hover:after{border-color:#999}
+.checkbox input{display:none}
+.checkbox input:checked + span:after{-webkit-animation:check .1s;-moz-animation:check .1s;-o-animation:check .1s;animation:check .1s;border-color:#555}
+.checkbox input:checked + .default:after{border-color:#444}
+.checkbox input:checked + .primary:after{border-color:#2196F3}
+.checkbox input:checked + .success:after{border-color:#8bc34a}
+.checkbox input:checked + .info:after{border-color:#3de0f5}
+.checkbox input:checked + .warning:after{border-color:#FFC107}
+.checkbox input:checked + .danger:after{border-color:#f44336}

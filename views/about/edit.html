@@ -1,0 +1,250 @@
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+<div ng-controller="AboutContentCtrl as ctrl" ng-show="ctrl.canEditAbout">
+	<form method="post" id="Form1" ng-submit="ctrl.saveAboutContent()" enctype="multipart/form-data">
+
+		<div class="title"> Edit Content </div>
+		<ol class="breadcrumb margin0">
+			<li><i class="fa-home"></i> <a href="ctrl.goto('portal.dashboard')">Home</a></li>
+			<li><a href="" ng-click="ctrl.goto('portal.aboutcategory')"> <i class="fa-file-o"></i> About SM </a></li>
+			<li class="active"><i class="fa-pencil"></i> Edit Content </li>
+		</ol>
+
+		<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+			<input type="hidden" name="action" value="add-cate">
+			<input type="hidden" name="id" value="1">
+			<input type="hidden" name="page" value="index.php">
+			
+			<div class="widget-box-blue">
+				<div class="widget-title" lang="th"><i class="fa-info"></i> Info </div>
+				<ul class="widget-tool navbar-right">
+					<li><i class="fa-caret-up show-hide-widget"></i></li>
+				</ul>
+				<div class="widget-inbox">
+					<div class="form-box">
+
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Name : </label>
+							<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+								{{ctrl.stateModel.name}}
+							</div>
+						</div>
+						<div class="cleaner"></div>
+
+						<div class="form-group">
+							<label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Content :
+							</label>
+							<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+								<textarea ui-tinymce="tinymceOptions" class="form-control" rows="8"
+									ng-model="ctrl.aboutModel.content"></textarea>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+
+					</div>
+				</div>
+				<!--widget-inbox-->
+			</div>
+			<!--widget-box-->
+
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+			<div class="widget-box-grey">
+				<div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+				<ul class="widget-tool navbar-right">
+					<li><i class="fa-caret-up show-hide-widget"></i></li>
+				</ul>
+				
+				<div class="widget-inbox">
+					<div class="row">
+						<div class="col-xs-4 text-right">Create Date : </div>
+						<div class="col-xs-8" ng-if="ctrl.aboutModel.createdDate">
+							{{ctrl.aboutModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+						</div>
+						<div class="col-xs-8" ng-if="!ctrl.aboutModel.createdDate">
+							-
+						</div>
+						<div class="col-xs-4 text-right">by : </div>
+						<div class="col-xs-8" ng-if="ctrl.aboutModel.createdBy">
+							{{ctrl.aboutModel.createdBy}}
+						</div>
+						<div class="col-xs-8" ng-if="!ctrl.aboutModel.createdBy">
+							-
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-4 text-right">Last Modify : </div>
+						<div class="col-xs-8" ng-if="ctrl.aboutModel.updatedDate">
+							{{ctrl.aboutModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+						</div>
+						<div class="col-xs-8" ng-if="!ctrl.aboutModel.updatedDate">
+							-
+						</div>
+						<div class="col-xs-4 text-right">by : </div>
+						<div class="col-xs-8" ng-if="ctrl.aboutModel.updatedBy">
+							{{ctrl.aboutModel.updatedBy}}
+						</div>
+						<div class="col-xs-8" ng-if="!ctrl.aboutModel.updatedBy">
+							-
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="widget-box-orange">
+				<div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+				<ul class="widget-tool navbar-right">
+					<li><i class="fa-caret-up show-hide-widget"></i></li>
+				</ul>
+				<div class="widget-inbox">
+					<ul class="main-cate">
+						<li class="padding5">Active :
+							<div class="switch">
+								<input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+									value="1" name="status" ng-model="ctrl.aboutModel.active" checked>
+								<label for="cmn-toggle-1"></label>
+							</div>
+						</li>
+					</ul>
+
+				</div>
+				<!--widget-inbox-->
+			</div>
+			<!--widget-box-->
+
+			<div class="widget-box-sky">
+				<div class="widget-title" lang="th"><i class="fa-image"></i> Media</div>
+				<ul class="widget-tool navbar-right">
+					<li><i class="fa-caret-up show-hide-widget"></i></li>
+				</ul>
+				<div class="widget-inbox">
+						<div class="widget-inbox-cate">
+							<a href='' data-toggle='modal' ng-click="ctrl.uploadMedia()" >  <button class="btn-default form-control"  type="button"><i class="fa-image"></i> Media</button></a>     
+						</div>
+				</div>
+			</div>
+			<div class="widget-box-red">
+				<div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+				<ul class="widget-tool navbar-right">
+					<li><i class="fa-caret-up show-hide-widget"></i></li>
+				</ul>
+				<div class="widget-inbox">
+					<div class="product-images">
+						For :
+						<select id="select-tag form-control" class="select-tag form-control" name="permission"
+							ng-model="ctrl.aboutModel.selectedPermission"
+							ng-options="option.name for option in ctrl.permissions track by option.id">
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+		<div class="tool-bottom col-xs-12">
+			<ul>
+				<li>
+					<button class="bt-save" type="submit" ng-disabled="ctrl.processing">
+						<i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+				</li>
+				<li><button type="button" ng-click="ctrl.goto('portal.aboutcategory')" class="bt-clear">Cancel</button>
+				</li>
+			</ul>
+		</div>
+	</form>
+
+	<script type="text/ng-template" id="upload-media.html">
+		<div class="modal-header">
+			<button type="button" class="close" ng-click="close()">
+				<span>&times;</span>
+			</button>
+			<h4 class="modal-title" id="ModalLabel"> Media</h4>
+		</div>
+		<!--<form action="fn_portfolio.php" method="post" id="Form1" enctype="multipart/form-data">-->
+		<div class="modal-body">
+			<div class="form-box">
+
+				<div class="form-group">
+					<!--upload-->
+					<div class=" kv-main">
+						<strong>File upload</strong>
+						<form method="post" id="frm" name="frm" enctype="multipart/form-data">
+							<input id="file-upload" select-ng-files ng-model="files" angular-bfi="{'showUpload':false, 'previewFileType':'any', 'theme': 'explorer', 'overwriteInitial':false, 'initialPreviewAsData':'true'}" watch-options="true" type="file" accept=".jpg,.png" multiple>
+							<button ng-disabled="processing" type="button" ng-click="uploadFile()" class="btn btn-success">
+									<i ng-if="processing" class="fa fa-spinner fa-spin"></i> Upload Files</button>
+							<button class="btn btn-default" ng-click="close()">Cancel</button>
+						</form>
+					</div>
+					<!--upload-->
+				</div>
+				<hr>
+				<strong>List media</strong>
+				<button class="bt-clear" ng-show="showDelete" ng-click="deletes()"><i class="fa-trash"></i> Delete</button>
+				<hr>
+				<div class="form-group">
+					<div class="col-sm-1">
+						<input type="checkbox" name="all-product" id="all-product" class="css-checkbox"
+						ng-click="toggleAll()" ng-model="isAllSelected"><label for="all-product"
+						class="css-label"></label>
+					</div>
+					<div class="col-sm-4"><strong>Picture</strong></div>
+					<div class="col-sm-5"><strong>Name</strong></div>
+					<div class="col-sm-2 text-center"><strong>Copy url</strong></div>
+					<div class="cleaner"></div>
+				</div>
+				<div class="form-group"  ng-repeat="m in medias">
+					<div class="col-sm-1">
+						<input type="checkbox" name="{{m.id}}" id="{{m.id}}" class="chk_del css-checkbox"
+							ng-model="m.selected" ng-change="optionToggled()">
+						<label for="{{m.id}}" class="css-label"></label>
+					</div>
+					<div class="col-sm-4">
+						<img src="{{m.thumbImage}}" 
+						tooltip-placement="top-left"
+						uib-tooltip-template="'myTooltipTemplate.html'" height="50px">
+					</div>
+					<div class="col-sm-5" >{{m.fileName}}</div>
+					<div class="col-sm-2 text-center"><button type="button" ng-click="copyLink(m)" class="btn-primary bt-choose"><i class="fa fa-link"></i> Copy url</button></div>
+					<div class="cleaner"></div>
+				</div>
+				
+				<div class="cleaner"></div>
+				<div class="h10"></div>
+
+				<ul class="records-info records-info-bottom">
+					<li> </li> <a class="bt-prev" href="" ng-click="previousPage()"><i class="fa-caret-left"></i></a> <input type="text" size="3" ng-model="criteria.pageNumber"
+						disabled="">
+					<a href=""
+						class="bt-next" ng-click="nextPage()"><i class="fa-caret-right"></i></a> From {{totalPage}} pages
+					<li> &nbsp; <strong>|</strong> &nbsp; </li>
+					<li> Item per page
+						<select class="show-rec-no" ng-model="criteria.pageSize" ng-change="changePageSize()" ng-options="x for x in pageSizes">
+						</select> Rows </li>
+					<li> &nbsp; <strong>|</strong> &nbsp; </li>
+					<li>All <strong>{{criteria.total}}</strong> items</li>
+				</ul>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<!--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+			<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>-->
+		</div>
+	</script>
+	<script type="text/ng-template" id="myTooltipTemplate.html">
+		<img src="{{m.fileURL}}">
+	</script>
+	<script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+</div>
+<!--main-content-->
