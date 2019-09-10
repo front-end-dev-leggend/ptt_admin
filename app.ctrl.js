@@ -502,7 +502,7 @@
 			},
 			theme: "modern",
 			language : 'th_TH',
-			menubar:false,
+			menubar:true,
 			statusbar: false,
 			relative_urls: false,
         	// enabled the protocol and host part of the URLs to remain (relative_urls must be false)

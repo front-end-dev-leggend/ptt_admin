@@ -18,7 +18,8 @@
 	])
 	/* develop */
 	.constant("appSetting", {
-		apiBaseUrl: "http://localhost:57348",
+		//apiBaseUrl: "http://localhost:57348",
+		apiBaseUrl: "https://pttgwebtest3.pttgrp.com/PTT-SMPortal_test/admin/service",
 		hostUrl: 'http://localhost:5000/#!',
 		documentBaseURL: 'https://pttgwebtest3.pttgrp.com/PTT-SMPortal_test',
 		apiWinauthBaseUrl: "http://localhost:54416"

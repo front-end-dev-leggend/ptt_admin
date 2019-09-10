@@ -7,6 +7,7 @@ $(function(){
 		selector: ".textarea",
 		theme: "modern",
 		language : 'th_TH',
+		menubar : true,
 		font_formats: "Andale Mono=andale mono,times;"+
 				"Arial=arial,helvetica,sans-serif;"+
 				"Arial Black=arial black,avant garde;"+
