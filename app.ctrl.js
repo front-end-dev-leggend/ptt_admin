@@ -502,7 +502,7 @@
 			},
 			theme: "modern",
 			language : 'th_TH',
-			menubar:true,
+			menubar:false,
 			statusbar: false,
 			relative_urls: false,
         	// enabled the protocol and host part of the URLs to remain (relative_urls must be false)
@@ -753,6 +753,7 @@
 					var found = false;
 					for(var v= 0; v < ctrl.newsModel.newsImages.length; v++) {
 						var m = ctrl.newsModel.newsImages[v];
+						console.log(m);
 						if (m.state == 'update' && m.selected){
 							ids.push(m.id);
 						}
@@ -761,6 +762,7 @@
 							for(var i= 0; i < ctrl.files.length; i++) {
 								if (ctrl.files[i] === m.file) {
 									tempids.push(m.id);
+									ids.push(m.id);
 									ctrl.files.splice(i, 1);
 									i--;
 								}
