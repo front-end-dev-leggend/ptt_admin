@@ -166,16 +166,26 @@
                     <li><i class="fa-caret-up show-hide-widget"></i></li>
                 </ul>
                 <div class="widget-inbox">
-                    <p class="red">* ขนาดรูปที่แนะนำ 1000x666 pixels และควรมีขนาดไม่เกิน 3 MB</p>
+                        <p class="red">* ขนาดรูปที่แนะนำ 1000x666 pixels และควรมีขนาดไม่เกิน 3MB</p>
                     <!--profile-box-->
                     <input type="hidden" name="id_cover" value="">
                     <div class="profile-box" style="text-align: center">
-                        <div class="profile-image" style="padding-bottom: 30%"><!--images/nopic.png-->
-                            <div class="bt-del-image" ng-click="ctrl.deleteCoverImage()" data-file="c1429a213d052139ae051d7c074e83bb.png" data-action="del-image"><svg class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" data-fa-i2svg=""><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></div>
-                            <img src="{{ctrl.newsModel.thumbnail}}" ng-click="ctrl.uploadCoverImage()" alt="profile-picture" class="img-responsive">
+                        <div class="profile-image" style="padding-bottom: 2%;">
+                            <div class="bt-del-image" ng-click="ctrl.deleteCoverImage()"
+                                data-file="c1429a213d052139ae051d7c074e83bb.png" data-action="del-image"><svg
+                                    class="svg-inline--fa fa-times fa-w-11" aria-hidden="true" focusable="false"
+                                    data-prefix="fa" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 352 512" data-fa-i2svg="">
+                                    <path fill="currentColor"
+                                        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                    </path>
+                                </svg></div>
+                            <img src="{{ctrl.newsModel.thumbnail}}" ng-click="ctrl.uploadCoverImage()"
+                                style="position: unset;" alt="profile-picture" class="img-responsive">
                         </div>
                         <div class="btn btn-sm btn-submit" data-toggle="modal" data-target="#avatar-modal">
-                                <a href="" ng-click="ctrl.uploadCoverImage()"><i class="ion-images"></i> Choose cover image</a>
+                            <a href="" ng-click="ctrl.uploadCoverImage()"><i class="ion-images"></i> Choose cover
+                                image</a>
                         </div>
                     </div>
                     <!--profile-box-->
@@ -352,7 +362,7 @@
         </div>
         <div class="modal-body text-center" id="modal-body-editor"  ng-if="myImage !== ''">
             <div class="cropArea">
-                <ui-cropper image="myImage" area-type="rectangle" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
+                <ui-cropper image="myImage" area-type="rectangle"  result-image-size="'max'" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
             </div>
             <br/>
             <a id="cropAvatar" class="btn btn-submit btn-sm" ng-click="cropFuntion()">Crop</a>

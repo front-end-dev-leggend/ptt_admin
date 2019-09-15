@@ -650,8 +650,8 @@
 				$scope.blockingObject = { block: true };
 				$scope.cropFuntion = function () {
 					$scope.blockingObject.render(function (dataURL) {
-						console.log('via render');
-						console.log(dataURL.length);
+						//console.log('via render');
+						//console.log(dataURL.length);
 					});
 				}
 				$scope.blockingObject.callback = function (dataURL) {
@@ -665,6 +665,7 @@
 							$scope.myImage = evt.target.result;
 						});
 					};
+				    //console.log(file);
 					reader.readAsDataURL(file);
 				};
 
@@ -753,7 +754,7 @@
 					var found = false;
 					for(var v= 0; v < ctrl.newsModel.newsImages.length; v++) {
 						var m = ctrl.newsModel.newsImages[v];
-						console.log(m);
+						//console.log(m);
 						if (m.state == 'update' && m.selected){
 							ids.push(m.id);
 						}
@@ -1031,7 +1032,7 @@
 					$uibModalInstance.close(true);
 				}
 				if (!clipboard.supported) {
-					console.log('Sorry, copy to clipboard is not supported');
+					//console.log('Sorry, copy to clipboard is not supported');
 				}
 				$scope.copyLink = function(s){
 					clipboard.copyText(s.fileURL);
@@ -1608,8 +1609,8 @@
 				$scope.blockingObject = { block: true };
 				$scope.cropFuntion = function () {
 					$scope.blockingObject.render(function (dataURL) {
-						// console.log('via render');
-						// console.log(dataURL.length);
+						 //console.log('via render');
+						 //console.log(dataURL.length);
 					});
 				}
 				$scope.blockingObject.callback = function (dataURL) {
@@ -1623,6 +1624,7 @@
 							$scope.myImage = evt.target.result;
 						});
 					};
+					//console.log(file);
 					reader.readAsDataURL(file);
 				};
 
