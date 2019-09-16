@@ -1,0 +1,517 @@
+<script type="text/javascript">
+    if (typeof app === 'undefined') {
+        document.location.href = "index.html";
+    }
+</script>
+<div ng-controller="EditPolicyCtrl as ctrl" ng-show="ctrl.canEdit">
+
+    <form name="frmEdit" id="frmEdit" method="POST" ng-submit="ctrl.submitPolicy(frmEdit.$valid)" novalidate>
+        <div class="title">Add Dashboard Report</div>
+
+        <ol class="breadcrumb margin0">
+            <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+            <li><i class="fa-newspaper-o"></i> <a href="" ng-click="ctrl.goto('AllPolicy')">Dashboard Report</a></li>
+            <li class="active"><i class="fa-pencil"></i> Add Dashboard Report </li>
+        </ol>
+
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            <div class="widget-box-turquoise">
+                <div class="widget-title" lang="th"><i class="fa-cubes"></i> Add Dashboard Report</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <form name="frmCategory" id="frmCategory" method="POST"
+                        ng-submit="ctrl.saveCategory(frmCategory.$valid)" novalidate>
+
+                        <div class="form-box">
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"> Dashboard
+                                    Report Name <span class="required-red">*</span>
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                    <div class="form-group"
+                                        ng-class="{ 'has-error' : frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine }">
+                                        <input class="form-control" id="dashboard_report" name="dashboard_report"
+                                            type="text" required ng-model="ctrl.editObj.dashboard_report"
+                                            maxlength="200"
+                                            ng-class="{ 'is-invalid' : frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine }">
+                                        <div class="help-block with-errors"
+                                            ng-if="frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine">
+                                            Dashboard Report Name is require.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right"> Description
+                                    :
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9">
+                                    <textarea ui-tinymce="tinymceOptions" class="form-control" rows="6"
+                                        ng-model="ctrl.newsModel.detail"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">Tableau Work
+                                    Book Name<span class="required-red">*</span>
+                                </label>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 form-group"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+
+                                    <input class="form-control" id="cate_name" name="cate_name" type="text" required
+                                        ng-model="ctrl.editObj.name" maxlength="200"
+                                        ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+
+                            <div class="cleaner"></div>
+                            <!-- <div class="form-group">
+                                <ul class="main-cate">
+                                    <li class="padding5">Show on Highlight :
+                                        <div class="switch">
+                                            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat"
+                                                type="checkbox" value="1" ng-model="ctrl.editObj.status" name="status"
+                                                ng-true-value="'Active'" ng-false-value="'Inactive'">
+                                            <label for="cmn-toggle-1"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div> -->
+
+
+                            <div class="form-group">
+                                <label class="col-xs-12 col-sm-4 col-md-4 col-lg-3 control-labe text-right">File
+                                    Format<span class="required-red">*</span> </label>
+                                <div class="form-group col-xs-12 col-sm-8 col-md-8 col-lg-9 control-labe"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <select class="form-control" id="tableau" name="tableau"
+                                        ng-model="ctr.editObj.name">
+                                        <option>PDF</option>
+                                        <option>PNG</option>
+                                    </select>
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label
+                                    class="control-labe col-xs-12 col-sm-4 col-md-3 control-labe text-right">Clevel</label>
+                                <div class="switch control-labe col-xs-12 col-sm-2 col-md-2  control-labe">
+                                    <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                        value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                    <label for="cmn-toggle-1"></label>
+                                </div>
+                                <label
+                                    class="control-labe col-xs-12 col-sm-2 col-md-2 control-labe text-right">Frequency</label>
+                                <div class="form-group col-xs-15 col-sm-4 col-md-5  control-labe"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <select class="form-control" id="tableau" name="tableau"
+                                        ng-model="ctr.editObj.name">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                        <option>Quarter</option>
+                                        <option>Half Year</option>
+                                        <option>Yearly</option>
+                                    </select>
+
+
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label
+                                    class="control-labe col-xs-12 col-sm-4 col-md-3 control-labe text-right">SEVP</label>
+                                <div class="switch control-labe col-xs-12 col-sm-2 col-md-2  control-labe">
+                                    <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                        value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                    <label for="cmn-toggle-1"></label>
+                                </div>
+                                <label
+                                    class="control-labe col-xs-12 col-sm-2 col-md-2 control-labe text-right">Frequency</label>
+                                <div class="form-group col-xs-15 col-sm-4 col-md-5  control-labe"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <select class="form-control" id="tableau" name="tableau"
+                                        ng-model="ctr.editObj.name">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                        <option>Quarter</option>
+                                        <option>Half Year</option>
+                                        <option>Yearly</option>
+                                    </select>
+
+
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label
+                                    class="control-labe col-xs-12 col-sm-4 col-md-3 control-labe text-right">EVP</label>
+                                <div class="switch control-labe col-xs-12 col-sm-2 col-md-2  control-labe">
+                                    <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                        value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                    <label for="cmn-toggle-1"></label>
+                                </div>
+                                <label
+                                    class="control-labe col-xs-12 col-sm-2 col-md-2 control-labe text-right">Frequency</label>
+                                <div class="form-group col-xs-15 col-sm-4 col-md-5  control-labe"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <select class="form-control" id="tableau" name="tableau"
+                                        ng-model="ctr.editObj.name">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                        <option>Quarter</option>
+                                        <option>Half Year</option>
+                                        <option>Yearly</option>
+                                    </select>
+
+
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label
+                                    class="control-labe col-xs-12 col-sm-4 col-md-3 control-labe text-right">VP</label>
+                                <div class="switch control-labe col-xs-12 col-sm-2 col-md-2  control-labe">
+                                    <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                        value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                    <label for="cmn-toggle-1"></label>
+                                </div>
+                                <label
+                                    class="control-labe col-xs-12 col-sm-2 col-md-2 control-labe text-right">Frequency</label>
+                                <div class="form-group col-xs-15 col-sm-4 col-md-5  control-labe"
+                                    ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <select class="form-control" id="tableau" name="tableau"
+                                        ng-model="ctr.editObj.name">
+                                        <option>Weekly</option>
+                                        <option>Monthly</option>
+                                        <option>Quarter</option>
+                                        <option>Half Year</option>
+                                        <option>Yearly</option>
+                                    </select>
+
+
+                                    <div class="help-block with-errors"
+                                        ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">
+                                        Category name is required.</div>
+                                </div>
+                            </div>
+
+
+                            <div class="cleaner h10"></div>
+                            <input type="hidden" name="action" value="add-cate" />
+                            <input type="hidden" name="id" value="3" />
+                            <input type="hidden" name="showindex" value="" />
+
+
+                            <div ng-show="ctrl.canEditAbout" class="form-box" ng-if="ctrl.state == 'add'"
+                                ng-disabled="ctrl.processing">
+                                <button type="submit" class="bt-add">+ Add</button>
+                            </div>
+                            <div ng-show="ctrl.canEditAbout" class="tool-bottom col-xs-12" ng-if="ctrl.state == 'edit'">
+                                <ul style="cursor: pointer;">
+                                    <li>
+                                        <button type="submit" class="bt-save" ng-disabled="ctrl.processing">
+                                            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i>Save
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <a class="bt-clear" ng-click="ctrl.cancelCategory()">Cancel</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="widget-box-grey">
+                <div class="widget-title" lang="th"><i class="fa-history"></i> History</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Create Date : </div>
+                        <div class="col-xs-8" ng-if="ctrl.newsModel.createdDate">
+                            {{ctrl.newsModel.createdDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.newsModel.createdDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.newsModel.createdBy">
+                            {{ctrl.newsModel.createdBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.newsModel.createdBy">
+                            -
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4 text-right">Last Modify : </div>
+                        <div class="col-xs-8" ng-if="ctrl.newsModel.updatedDate">
+                            {{ctrl.newsModel.updatedDate | date:'dd MMM yyyy @ HH:mm'}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.newsModel.updatedDate">
+                            -
+                        </div>
+                        <div class="col-xs-4 text-right">by : </div>
+                        <div class="col-xs-8" ng-if="ctrl.newsModel.updatedBy">
+                            {{ctrl.newsModel.updatedBy}}
+                        </div>
+                        <div class="col-xs-8" ng-if="!ctrl.newsModel.updatedBy">
+                            -
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget-box-orange">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Status</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <div class="widget-box-green">
+                <div class="widget-title" lang="th"><i class="fa-heart"></i> Show on Hightlight</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--widget-inbox-->
+            </div>
+            <!--widget-box-->
+
+            <div class="widget-box-sky">
+                <div class="widget-title" lang="th"><i class="fa-image"></i> Send Email</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <ul class="main-cate">
+                        <li class="padding5">Active :
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox"
+                                    value="1" name="status" ng-model="ctrl.newsModel.status" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <!--widget-box-->
+
+            <div class="widget-box-red">
+                <div class="widget-title" lang="th"><i class="fa-child"></i> Permission</div>
+                <ul class="widget-tool navbar-right">
+                    <li><i class="fa-caret-up show-hide-widget"></i></li>
+                </ul>
+                <div class="widget-inbox">
+                    <div class="widget-inbox-cate">
+
+                        For :
+                        <select id="select-tag form-control" class="select-tag form-control" name="permission"
+                            ng-model="ctrl.newsModel.selectedPermission"
+                            ng-options="option.name for option in ctrl.permissions track by option.id">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="widget-box-violet">
+                    <div class="widget-title" lang="th"><i class="fa-file-pdf-o"></i> ไฟล์ Upload</div>
+                    <ul class="widget-tool navbar-right">
+                        <li><i class="fa-caret-up show-hide-widget"></i></li>
+                    </ul>
+                    <div class="widget-inbox">
+                        <div class="product-images">
+                            <div class='add-pdf'>
+                                <span><i class='fa-file-pdf-o'></i><a class='text'>เลือกไฟล์ Upload</a></span>
+                            </div>
+                            <input class="hidden" type="file" name="file_array1">
+                        </div>
+                        <div class="cleaner"></div>
+                    </div>
+                </div> -->
+            <!--widget-box-->
+
+        </div>
+        <div class="cleaner"></div>
+        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website
+            หน้าบ้านเพื่อ refresh ข้อมูล</p>
+        <div class="tool-bottom col-xs-12" ng-show="ctrl.canEditNews">
+            <button type="submit" ng-disabled="ctrl.processing" class="bt-save">
+                <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i> Save</button>
+            <button type="button" ng-click="ctrl.goto('AllNews')" class="bt-clear">Cancel</button>
+        </div>
+    </form>
+    <script type="text/ng-template" id="confirm-delete.html">
+
+            <div class="modal-body" id="modal-body-editor">
+                หากต้องการลบ กรุณายืนยันอีกครั้ง
+            </div>
+            <div class="modal-footer">
+                <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+                <button class="" ng-click="close()" type="button">Cancel</button>
+            </div>
+        </script>
+    <script type="text/ng-template" id="upload-cover.html">
+            <div class="modal-header">
+                <h3 class="modal-title" style="display: inline;">Cover image</h3>
+                <button type="button" class="close" data-dismiss="modal" ng-click="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body  text-center" id="modal-body-editor" ng-if="myImage === ''">
+                <div class="form-group text-center">
+                    <input type="file" id="fileInput" style="display:none" name="fileInput"/>
+                    <div class="avatar-wrapper" style="display: block;">
+                            <div class="select-image" ng-click="triggerUpload()">
+                                <svg class="svg-inline--fa fa-image fa-w-14" aria-hidden="true" focusable="false" data-prefix="far" data-icon="image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm-6 336H54a6 6 0 0 1-6-6V118a6 6 0 0 1 6-6h404a6 6 0 0 1 6 6v276a6 6 0 0 1-6 6zM128 152c-22.091 0-40 17.909-40 40s17.909 40 40 40 40-17.909 40-40-17.909-40-40-40zM96 352h320v-80l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L192 304l-39.515-39.515c-4.686-4.686-12.284-4.686-16.971 0L96 304v48z"></path></svg>
+                                Click for Upload 
+                            </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <br/>
+                <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+            </div>
+            <div class="modal-body text-center" id="modal-body-editor"  ng-if="myImage !== ''">
+                <div class="cropArea">
+                    <ui-cropper image="myImage" area-type="rectangle" result-image="myCroppedImage" live-view="blockingObject"></ui-cropper>
+                </div>
+                <br/>
+                <a id="cropAvatar" class="btn btn-submit btn-sm" ng-click="cropFuntion()">Crop</a>
+                <a id="cropCancel" class="btn btn-reset btn-sm" ng-click="close()">Cancel</a>
+            </div>
+        </script>
+    <script type="text/ng-template" id="upload-media.html">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="close()">
+                    <span>&times;</span></button>
+                <h4 class="modal-title" id="ModalLabel"> Media</h4>
+            </div>
+            <!--<form action="fn_portfolio.php" method="post" id="Form1" enctype="multipart/form-data">-->
+            <div class="modal-body">
+                <div class="form-box">
+    
+                    <div class="form-group">
+                        <!--upload-->
+                        <div class=" kv-main">
+                            <strong>File upload</strong>
+                            <form method="post" id="frm" name="frm" enctype="multipart/form-data">
+                                <input id="file-upload" select-ng-files ng-model="files" angular-bfi="{'showUpload':false, 'previewFileType':'any', 'theme': 'explorer', 'overwriteInitial':false, 'initialPreviewAsData':'true'}" watch-options="true" type="file" accept=".jpg,.png" multiple>
+                                <button ng-disabled="processing" type="button" ng-click="uploadFile()" class="btn btn-success">
+                                        <i ng-if="processing" class="fa fa-spinner fa-spin"></i> Upload Files</button>
+                                <button class="btn btn-default" ng-click="close()">Cancel</button>
+                            </form>
+                        </div>
+                        <!--upload-->
+                    </div>
+                    <hr>
+                    <strong>List media</strong>
+                    <button class="bt-clear" ng-show="showDelete" ng-click="deletes()"><i class="fa-trash"></i> Delete</button>
+                    <hr>
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <input type="checkbox" name="all-product" id="all-product" class="css-checkbox"
+                            ng-click="toggleAll()" ng-model="isAllSelected"><label for="all-product"
+                            class="css-label"></label>
+                        </div>
+                        <div class="col-sm-4"><strong>Picture</strong></div>
+                        <div class="col-sm-5"><strong>Name</strong></div>
+                        <div class="col-sm-2 text-center"><strong>Copy url</strong></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    <div class="form-group"  ng-repeat="m in medias">
+                        <div class="col-sm-1">
+                            <input type="checkbox" name="{{m.id}}" id="{{m.id}}" class="chk_del css-checkbox"
+                                ng-model="m.selected" ng-change="optionToggled()">
+                            <label for="{{m.id}}" class="css-label"></label>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="{{m.thumbImage}}" 
+                            tooltip-placement="top-left"
+                            uib-tooltip-template="'myTooltipTemplate.html'" height="50px">
+                        </div>
+                        <div class="col-sm-5" >{{m.fileName}}</div>
+                        <div class="col-sm-2 text-center"><button type="button" ng-click="copyLink(m)" class="btn-primary bt-choose"><i class="fa fa-link"></i> Copy url</button></div>
+                        <div class="cleaner"></div>
+                    </div>
+                    
+                    <div class="cleaner"></div>
+                    <div class="h10"></div>
+    
+                    <ul class="records-info records-info-bottom">
+                        <li> </li> <a class="bt-prev" href="" ng-click="previousPage()"><i class="fa-caret-left"></i></a> <input type="text" size="3" ng-model="criteria.pageNumber"
+                            disabled="">
+                        <a href=""
+                            class="bt-next" ng-click="nextPage()"><i class="fa-caret-right"></i></a> From {{totalPage}} pages
+                        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+                        <li> Item per page
+                            <select class="show-rec-no" ng-model="criteria.pageSize" ng-change="changePageSize()" ng-options="x for x in pageSizes">
+                            </select> Rows </li>
+                        <li> &nbsp; <strong>|</strong> &nbsp; </li>
+                        <li>All <strong>{{criteria.total}}</strong> items</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>-->
+            </div>
+        </script>
+    <script type="text/ng-template" id="myTooltipTemplate.html">
+            <img src="{{m.fileURL}}">
+        </script>
+    <script type="text/ng-template" id="confirm-delete.html">
+
+            <div class="modal-body" id="modal-body-editor">
+                หากต้องการลบ กรุณายืนยันอีกครั้ง
+            </div>
+            <div class="modal-footer">
+                <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+                <button class="" ng-click="close()" type="button">Cancel</button>
+            </div>
+        </script>
+    <script src="js/bws.js"></script>
+</div>

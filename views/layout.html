@@ -55,9 +55,30 @@
                                             </a></li>
                                         <li ng-show="ctrl.canViewDownload"><a href="" ng-click="ctrl.goto('AllDownload')" class="gn-icon">All
                                                 Download</a></li>
+                                        <!-- <li ng-show="ctrl.canViewDownload"><a href="" ng-click="ctrl.goto('AllDownload')" class="gn-icon">Download Report</a></li> -->
                                     </ul>
                                 </li>
 
+                                <li  ng-show="ctrl.canViewCategoryDownload || ctrl.canViewDownload">
+                                    <a href="" class="fa-glass">Dashboard Report</a><i class="submenu hide-submenu"></i>
+                                    <ul class="gn-submenu">
+                                        <li ng-show="ctrl.canViewCategoryDownload"><a href="" ng-click="ctrl.goto('DashbaordReportCategory')" class="gn-icon">Category
+                                            </a></li>
+                                        <li ng-show="ctrl.canViewDownload"><a href="" ng-click="ctrl.goto('AllDashbaordReport')" class="gn-icon">All
+                                                Download Report</a></li>
+                                        <!-- <li ng-show="ctrl.canViewDownload"><a href="" ng-click="ctrl.goto('AllDownload')" class="gn-icon">Download Report</a></li> -->
+                                    </ul>
+                                </li>
+                                <!-- <li  ng-show="ctrl.canViewCategoryDownload || ctrl.canViewDownload">
+                                    <a href="" class="fa-glass"><i class="fas fa-chart-line"></i>Dashboard Report <i class="submenu hide-submenu"></i></a>
+                                    <ul class="gn-submenu">
+                                        <li ng-show="ctrl.canViewCategoryDownload"><a href="" ng-click="ctrl.goto('DashbaordReport')" class="gn-icon">Category
+                                            </a></li>
+                                        <li ng-show="ctrl.canViewDownload"><a href="" ng-click="ctrl.goto('AllDownload')" class="gn-icon">All
+                                                Download</a></li>
+                                       
+                                    </ul>
+                                </li> -->
 
                                 <li ng-show="ctrl.canViewContactList">
                                     <a href="" ng-click="ctrl.goto('Contacts')" class="fa-comments-o">Contact List</a>

@@ -1,3 +1,4 @@
+<!--main-content-->
 <script type="text/javascript">
     if(typeof app === 'undefined'){
         document.location.href="index.html";
@@ -5,10 +6,10 @@
 </script>
 <div ng-controller="PolicyCtrl as ctrl" ng-show="ctrl.canView || ctrl.canEdit">
 
-    <div class="title"> All Policy & Target </div>
+    <div class="title"> Dashboard Report </div>
     <ol class="breadcrumb margin0">
         <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
-        <li><i class="fa-file-text-o"></i> <a href="" ng-click="ctrl.goto('AllPolicies')"> Policy & Target </a></li>
+        <li><i class="fa-file-text-o"></i> <a href="" ng-click="ctrl.goto('AllPolicies')"> Dashboard Report</a></li>
         <li class="active"><i class="fa-list"></i> All Dashboard Report </li>
     </ol>
 
@@ -17,16 +18,17 @@
     <div class="alert alert-info list-search" role="alert">
         <form name="frmSearch" id="frmSearch" method="POST" ng-submit="ctrl.search(true)">
             <input name="no-pg" type="hidden" value="10" />
-            <i class="fa-file-text-o"></i> <strong> Topic </strong> : <input type="text" name="search_title" ng-model="ctrl.criteria.topic" value="">
+            <i class="fa-file-text-o"></i> <strong> Dashboard Report Name </strong> : <input type="text" name="search_title" ng-model="ctrl.criteria.topic" value="">
             &nbsp;|&nbsp;
             <i class="fa-sitemap"></i> <strong>Category</strong> :
             <select id="search_cate" name="search_cate"
                     ng-model="ctrl.criteria.selectedCategory"
                     ng-options="option.name for option in ctrl.categories track by option.id">
             </select> &nbsp;|&nbsp;
-            <strong><i class="fa-calendar-alt"></i> Document Date Duration </strong> :
-            <input type="text" name="search_docdate_start"  datepicker ng-readonly="true" style="background:white;" name="search_docdate_start" ng-model="ctrl.criteria.dateFrom"> - <input type="text" name="search_docdate_end"
-                datepicker ng-readonly="true" style="background:white;" ng-model="ctrl.criteria.dateTo"> &nbsp;|&nbsp;
+            <strong><i class="fa-calendar-alt"></i> Description </strong> :
+            <input type="text" name="description" id="description">
+            <!-- <input type="text" name="search_docdate_start"  datepicker ng-readonly="true" style="background:white;" name="search_docdate_start" ng-model="ctrl.criteria.dateFrom"> - <input type="text" name="search_docdate_end"
+                datepicker ng-readonly="true" style="background:white;" ng-model="ctrl.criteria.dateTo"> &nbsp;|&nbsp; -->
             <div class="cleaner h10"></div>
             <i class="fa-heart"></i> <strong>Status</strong></strong> :
             <select id="search_cate" name="search_cate"
@@ -45,7 +47,7 @@
     <div class="h10"></div>
 
     <ul class="records-info" ng-show="ctrl.canEdit">
-        <li><a href=""  ng-click="ctrl.goto('AddPolicy')"><button class="btn btn-info">Add Download Report </button></a> &nbsp; </li>
+        <li><a href=""  ng-click="ctrl.goto('DashbaordReportCategory')"><button class="btn btn-info">Add Dashboard Report </button></a> &nbsp; </li>
     </ul>
 
     <div id="searchresult"  class="scroll-x">
@@ -128,7 +130,7 @@
                 <tr ng-if="ctrl.criteria.results.length == 0">
                     <td colspan="9">No data found</td>
                 </tr>
-                <tr ng-repeat="r in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0" ng-class="{'warning': r.selected}">
+                <tr ng-repeat="(index,r) in ctrl.criteria.results" ng-if="ctrl.criteria.results.length > 0" ng-class="{'warning': r.selected}">
                     <td>
                         <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="chk_del css-checkbox"
                         ng-model="r.selected" ng-change="ctrl.optionToggled()">
@@ -140,13 +142,13 @@
                             ng-model="r.priority" ng-change="ctrl.updatePolicyPriority(r.id, r.priority)" ng-options="x for x in r.priorities"></select>
                     </td>
                     <td align="center">
-                        <div class="selected-item-blue">{{r.category}}</div>
+                        {{"report "+(index+1)}}
                         <div class="cleaner"></div>
                     </td>
                     <td>
-                        {{r.topic}}<div class="h10"></div>
+                        {{"report "+(index+1)+" description"}}<div class="h10"></div>
                     </td>
-                    <td align="center">{{r.documentDate | date:'d MMM yyyy'}}</td>
+                    <td align="center">Workbook 1</td>
                     <td align="center">
                         {{r.counter | thousandSuffix:1}}
                     </td>

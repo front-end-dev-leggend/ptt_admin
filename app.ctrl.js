@@ -184,7 +184,14 @@
 				$state.go('portal.news');
 			} else if (sel === 'DownloadCategory') {
 				$state.go('portal.downloadcategory');
-			} else if (sel === 'AllDownload') {
+			} else if(sel==='DashbaordReportCategory'){
+				$state.go('portal.dashboardReportCategory');
+			}else if(sel==='AllDashbaordReport'){
+				$state.go('portal.allDashboardReport');
+			}else if(sel==='AddDashboardReport'){
+				$state.go('portal.addDashboardReport');
+			}
+			else if (sel === 'AllDownload') {
 				$state.go('portal.download');
 			} else if (sel === 'AboutCategory') {
 				$state.go('portal.aboutcategory');
@@ -650,8 +657,8 @@
 				$scope.blockingObject = { block: true };
 				$scope.cropFuntion = function () {
 					$scope.blockingObject.render(function (dataURL) {
-						//console.log('via render');
-						//console.log(dataURL.length);
+						console.log('via render');
+						console.log(dataURL.length);
 					});
 				}
 				$scope.blockingObject.callback = function (dataURL) {
@@ -665,7 +672,6 @@
 							$scope.myImage = evt.target.result;
 						});
 					};
-				    //console.log(file);
 					reader.readAsDataURL(file);
 				};
 
@@ -754,7 +760,7 @@
 					var found = false;
 					for(var v= 0; v < ctrl.newsModel.newsImages.length; v++) {
 						var m = ctrl.newsModel.newsImages[v];
-						//console.log(m);
+						console.log(m);
 						if (m.state == 'update' && m.selected){
 							ids.push(m.id);
 						}
@@ -1032,7 +1038,7 @@
 					$uibModalInstance.close(true);
 				}
 				if (!clipboard.supported) {
-					//console.log('Sorry, copy to clipboard is not supported');
+					console.log('Sorry, copy to clipboard is not supported');
 				}
 				$scope.copyLink = function(s){
 					clipboard.copyText(s.fileURL);
@@ -1609,8 +1615,8 @@
 				$scope.blockingObject = { block: true };
 				$scope.cropFuntion = function () {
 					$scope.blockingObject.render(function (dataURL) {
-						 //console.log('via render');
-						 //console.log(dataURL.length);
+						// console.log('via render');
+						// console.log(dataURL.length);
 					});
 				}
 				$scope.blockingObject.callback = function (dataURL) {
@@ -1624,7 +1630,6 @@
 							$scope.myImage = evt.target.result;
 						});
 					};
-					//console.log(file);
 					reader.readAsDataURL(file);
 				};
 
@@ -1835,7 +1840,15 @@
 		ctrl.status = ['Active', 'Inactive'];
 			
 		ctrl.editObj = null;
+		// ctr.dashboard_report=null;
+		// ctr.resetDashboard_report=function(){
+		// 	alert(11);
+		// 	ctr.dashboard_report={
+		// 		dashboard_report:null
+		// 	}
+		// }
 		ctrl.resetEditObj = function(){
+			
 			ctrl.editObj = {
 			id: 0,
 			name: null,
@@ -2080,6 +2093,7 @@
 
 		// load data 
 		ctrl.resetEditObj();
+		ctrl.resetDashboard_report();
 		ctrl.loadCategories();
 	}
 
@@ -2091,6 +2105,7 @@
 		ctrl.categoryType = '';
 		ctrl.categories = [];
 		ctrl.status = ['Active', 'Inactive'];
+
 		ctrl.displays = [
 			{id: 'DISPLAY_1', name: 'Block 3 columns x 1 row'}
 			, {id: 'DISPLAY_2', name: 'Block 3 columns x 2 rows'}
@@ -2098,7 +2113,12 @@
 			, {id: 'DISPLAY_3', name: 'List'}
 			, {id: 'DISPLAY_4', name: 'VDO'}
 		];
-		
+		// ctr.dashboard_report=null;
+		// ctr.resetDashboard_report=function(){
+		// 	ctr.dashboard_report={
+		// 		dashboard_report:null
+		// 	}
+		// }
 		ctrl.editObj = null;
 		ctrl.resetEditObj = function(){
 			ctrl.editObj = {
@@ -2357,6 +2377,7 @@
 		// load data 
 		ctrl.resetEditObj();
 		ctrl.loadCategories();
+		ctr.resetDashboard_report();
 	}
 
 	angular.module("app").controller("DownloadSubCategory", ['$scope', '$http', '$stateParams', '$uibModal', 'toastr', 'authService', '$window', '$rootScope', '$sce', '$state', 'categoryService', 'storageService', 'Upload', 'appSetting', DownloadSubCategory]);
@@ -2379,6 +2400,7 @@
 	
 		ctrl.editObj = null;
 		ctrl.resetEditObj = function(){
+			alert(11);
 			ctrl.editObj = {
 			id: 0,
 			name: null,

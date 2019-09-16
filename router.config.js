@@ -119,6 +119,18 @@ function config($stateProvider, $urlRouterProvider, $httpProvider, $locationProv
 			url: "/news",
 			templateUrl: 'views/news/list.html'
 		})
+		.state('portal.dashboardReportCategory',{
+			url: "/dashboard-reaport-category",
+			templateUrl: 'views/dashboard-report/category.html'
+		})
+		.state('portal.allDashboardReport',{
+			url: "/dashboard-reaport-all",
+			templateUrl: 'views/dashboard-report/list.html'
+		})
+		.state('portal.addDashboardReport',{
+			url: "/dashboard-reaport-add",
+			templateUrl: 'views/dashboard-report/edit.html'
+		})
 		.state('portal.editnews', {
 			url: "/editnews",
 			params: { obj: null },

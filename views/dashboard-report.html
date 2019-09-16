@@ -1,0 +1,312 @@
+<style>
+    th{
+        white-space: nowrap;
+    }
+</style>
+<script type="text/javascript">
+    if(typeof app === 'undefined'){
+        document.location.href="index.html";
+    }
+</script>
+
+<div ng-controller="AboutCategoryCtrl as ctrl" class="page-product" ng-show="ctrl.canViewAbout || ctrl.canEditAbout">
+
+    <div class="title"> Dashboard Report </div>
+    <ol class="breadcrumb margin0">
+        <li><i class="fa-home"></i> <a href="" ng-click="ctrl.goto('Dashboard')">Home</a></li>
+        <li class="active"><i class="fa-cube"></i> Dashboard Report </li>
+    </ol>
+
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="widget-box-turquoise">
+            <div class="widget-title" lang="th"><i class="fa-cubes"></i> Add Dashboard Report</div>
+            <ul class="widget-tool navbar-right">
+                <li><i class="fa-caret-up show-hide-widget"></i></li>
+            </ul>
+            <div class="widget-inbox">
+                <form name="frmCategory" id="frmCategory" method="POST" ng-submit="ctrl.saveCategory(frmCategory.$valid)" novalidate>
+                    <div class="form-box">
+                        <div class="form-group">
+                            <label class="control-labe">Dashboard Report Name <span class="required-red">*</span> </label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine }">
+                                <input class="form-control" id="dashboard_report" name="dashboard_report" type="text"
+                                    required ng-model="ctrl.editObj.dashboard_report"  maxlength="200"
+                                    ng-class="{ 'is-invalid' : frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine }">
+                                <div class="help-block with-errors" ng-if="frmCategory.dashboard_report.$invalid && !frmCategory.dashboard_report.$pristine">Dashboard Report Name is require.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-labe">Description<span class="required-red">*</span> </label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <input class="form-control" id="cate_name" name="cate_name" type="text"
+                                    required ng-model="ctrl.editObj.name"  maxlength="200"
+                                    ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-labe">Tableau Work Book Name<span class="required-red">*</span> </label>
+                                <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                
+                                    <input class="form-control" id="cate_name" name="cate_name" type="text"
+                                        required ng-model="ctrl.editObj.name"  maxlength="200"
+                                        ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                    <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                                </div>
+                            </div>
+                        
+                        <div class="form-group">
+                            <label class="control-labe">Permission<span class="required-red">*</span> </label>
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">PTT</label>
+                        
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">PTT GROUP</label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                            
+                                <!-- <select class="form-control" id="tableau" name="tableau" ng-model="ctr.editObj.name">
+                                    <option>PTT</option>
+                                    <option>PTT GROUP</option>
+                                </select> -->
+                                <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                            </div>
+                        </div>
+                        <div class="cleaner"></div>
+                        <div class="form-group">
+                            <ul class="main-cate">
+                                <li class="padding5">Show on Highlight : 
+                                    <div class="switch">
+                                        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" value="1" ng-model="ctrl.editObj.status" name="status"  ng-true-value="'Active'" ng-false-value="'Inactive'">
+                                        <label for="cmn-toggle-1"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                          <div class="form-group">
+                            <ul class="main-cate">
+                                <li class="padding5">Status : 
+                                    <div class="switch">
+                                        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" value="1" ng-model="ctrl.editObj.status" name="status"  ng-true-value="'Active'" ng-false-value="'Inactive'">
+                                        <label for="cmn-toggle-1"></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-labe">Send Email<span class="required-red">*</span> </label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <input class="form-control" id="cate_name" name="cate_name" type="text"
+                                    required ng-model="ctrl.editObj.name"  maxlength="200"
+                                    ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-labe">File Format<span class="required-red">*</span> </label>
+                            <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <input class="form-control" id="cate_name" name="cate_name" type="text"
+                                    required ng-model="ctrl.editObj.name"  maxlength="200"
+                                    ng-class="{ 'is-invalid' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                            </div>
+                        </div>
+                       
+                       <div class="row">
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                        <label class="control-labe">Clevel</label>
+                                        <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                        <select class="form-control" id="tableau" name="tableau" ng-model="ctr.editObj.name">
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                            <option>Quarter</option>
+                                            <option>Half Year</option>
+                                            <option>Yearly</option>
+                                        </select>
+                                        
+                                         
+                                        <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                        <label class="control-labe">SEVP</label>
+                                        <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                        <select class="form-control" id="tableau" name="tableau" ng-model="ctr.editObj.name">
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                            <option>Quarter</option>
+                                            <option>Half Year</option>
+                                            <option>Yearly</option>
+                                        </select>
+                                        
+                                         
+                                        <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                        <label class="control-labe">EVP</label>
+                                        <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                        <select class="form-control" id="tableau" name="tableau" ng-model="ctr.editObj.name">
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                            <option>Quarter</option>
+                                            <option>Half Year</option>
+                                            <option>Yearly</option>
+                                        </select>
+                                        
+                                         
+                                        <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                                    </div>
+                                </div>
+                           </div>
+                           <div class="col-sm-6">
+                                <div class="form-group">
+                                        <label class="control-labe">VP</label>
+                                        <div class="form-group" ng-class="{ 'has-error' : frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine }">
+                                        <select class="form-control" id="tableau" name="tableau" ng-model="ctr.editObj.name">
+                                            <option>Weekly</option>
+                                            <option>Monthly</option>
+                                            <option>Quarter</option>
+                                            <option>Half Year</option>
+                                            <option>Yearly</option>
+                                        </select>
+                                        
+                                         
+                                        <div class="help-block with-errors" ng-if="frmCategory.cate_name.$invalid && !frmCategory.cate_name.$pristine">Category name is required.</div>
+                                    </div>
+                                </div>
+                           </div>
+                       </div>
+                       
+                        <div class="cleaner h10"></div>
+                        <input type="hidden" name="action" value="add-cate"/>
+                        <input type="hidden" name="id" value="3"/>
+                        <input type="hidden" name="showindex" value=""/>
+                        
+                        <p class="small red">* หลังจากทำการเพิ่มหรือแก้ไขข้อมูลทุกครั้ง รบกวนทำการกด ctrl+f5 จากส่วน website หน้าบ้านเพื่อ refresh ข้อมูล</p>
+                        <div ng-show="ctrl.canEditAbout" class="form-box" ng-if="ctrl.state == 'add'"  ng-disabled="ctrl.processing">
+                                <button type="submit" class="bt-add">+ Add</button>
+                        </div>   
+                        <div  ng-show="ctrl.canEditAbout" class="tool-bottom col-xs-12" ng-if="ctrl.state == 'edit'">
+                            <ul style="cursor: pointer;">
+                                <li>
+                                        <button type="submit" class="bt-save"  ng-disabled="ctrl.processing" >
+                                            <i ng-if="ctrl.processing" class="fa fa-spinner fa-spin"></i>Save
+                                        </button>
+                                </li>
+                                <li>
+                                    <a class="bt-clear" ng-click="ctrl.cancelCategory()">Cancel</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+            <!--widget-inbox-->
+        </div>
+        <!--widget-box-->
+    </div>
+   
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="widget-box-grey">
+            <div class="widget-title" lang="th"><i class="fa-list"></i> List Dashbard Report</div>
+            <ul class="widget-tool navbar-right">
+                <li class="btn-danger" ng-show="ctrl.canEditAbout"><i class="fa-trash del-cate" ng-click="ctrl.deleteCategory()"></i></li>
+                <li><i class="fa-caret-up show-hide-widget"></i></li>
+            </ul>
+            <div class="widget-inbox">
+                <div class="scroll-y">
+                    <table class="table table-bordered record-list sorting">
+                        <tr>
+                            <th width="5%">
+                                <input type="checkbox" name="all-record" id="all-record" class="css-checkbox" ng-click="ctrl.toggleAll()" ng-model="ctrl.isAllSelected" /><label for="all-record" class="css-label"></label>
+                            </th>
+                            <!-- <th width="10%">No.</th> -->
+                            <th >Dashboard Report Name </th>
+                            <th>Description </th>
+                            <th>Name Category</th>
+                            <th>Tableau Work Book Name</th>
+                            <th>Permission</th>
+                            <th>Show On Highlight</th>
+                            <th align="center">Status </th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr ng-if="ctrl.categories.length == 0">
+                            <td colspan="10">No data found.</td>
+                        </tr>
+                        <tr ng-repeat="r in ctrl.categories" ng-class="{'warning': r.selected}">
+                            <td align="center">
+                                <input type="checkbox" name="{{r.id}}" id="{{r.id}}" class="css-checkbox chk_del"
+                                ng-model="r.selected" ng-change="ctrl.optionToggled()">
+                                <label for="{{r.id}}" class="css-label"></label>
+                            </td>
+                            <!-- <td align="center">
+                                <span class="sort_text hide">{{r.priority}}</span><input ng-model="r.priority" num-only change-on-blur="ctrl.updatePriority(r)" class="sort_input form-control text-center" value=""/>
+                                <select name="selPriority" ng-disabled="!ctrl.canEditAbout" ng-model="r.priority" ng-change="ctrl.updateCategoryPriority(r)" ng-options="x for x in r.priorities"></select>
+                            </td> -->
+                            <td align="center">TEST</td>
+                            <td align="center">Description</td>
+                            <td>test
+                            </td>
+                            <td align="center">
+                                {{r.counter | thousandSuffix:1}}
+                            </td>
+                          <td>ptt</td>
+                            <td align="center">
+                                <div class="publushed" ng-show="ctrl.canEditAbout" ng-class="{'unpublushed': r.status == 'Inactive'}">
+                                        <select class="select-publushed chk_show"
+                                        ng-disabled="!ctrl.canEditAbout"
+                                        data-id="24"
+                                        ng-model="r.status" ng-change="ctrl.updateCategoryStatus(r)">
+                                            <option ng-repeat="x in ctrl.status" value="{{x}}" class="black">{{x}}</option>
+                                        </select>
+                                </div>
+                                <div class="vpublushed" ng-show="!ctrl.canEditAbout" ng-class="{'vunpublushed': r.status == 'Inactive'}">
+                                    {{r.status}}
+                                </div>
+                            </td>
+                            <td align="center">
+                                    <div class="publushed" ng-show="ctrl.canEditAbout" ng-class="{'unpublushed': r.status == 'Inactive'}">
+                                            <select class="select-publushed chk_show"
+                                            ng-disabled="!ctrl.canEditAbout"
+                                            data-id="24"
+                                            ng-model="r.status" ng-change="ctrl.updateCategoryStatus(r)">
+                                                <option ng-repeat="x in ctrl.status" value="{{x}}" class="black">{{x}}</option>
+                                            </select>
+                                    </div>
+                                    <div class="vpublushed" ng-show="!ctrl.canEditAbout" ng-class="{'vunpublushed': r.status == 'Inactive'}">
+                                        {{r.status}}
+                                    </div>
+                                </td>
+                            <td><a href="" class="bt-edit" ng-class="!ctrl.canEditAbout? 'disabled' : ''" ng-click="ctrl.editCategory(r)"><i class="fa-pencil"></i> Edit</a></td>
+                            <td>
+                                    <a href="" ng-click="ctrl.preview(r)" target="_blank" class="bt-view"><i class="fa-eye"></i> View </a>
+                            </td>
+                        </tr>             
+                    </table>
+                </div>
+            </div>
+            <!--widget-inbox-->
+        </div>
+
+    </div>
+    <script type="text/ng-template" id="confirm-delete.html">
+        
+        <div class="modal-body" id="modal-body-editor">
+            หากต้องการลบ กรุณายืนยันอีกครั้ง
+        </div>
+        <div class="modal-footer">
+            <button class="bt-confirm" ng-click="submit()" type="button">OK</button>
+            <button class="" ng-click="close()" type="button">Cancel</button>
+        </div>
+    </script>
+	<script src="js/bws.js"></script>
+</div>
+<!--main-content-->
